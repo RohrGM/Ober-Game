@@ -2,7 +2,7 @@ from abc import abstractmethod
 
 import pyxel
 from Nodes.BasicNodes.Body2D import Body2D
-from Nodes.SpecificNodes.Bullet import Bullet
+from Scenes.Bullet import Bullet
 from Util.Vector2 import Vector2
 
 
@@ -29,7 +29,7 @@ class Player(Body2D):
                 return True
         return False
 
-    def on_body_collision(self, body):
+    def on_body_collision(self, body, pos_y):
         pass
 
     def reload(self):

@@ -21,11 +21,12 @@ class Body2D(Node2D):
     def check_collision(self):
         for body in Body2D.collision_layer.copy():
             if self.__mask == body.get_layer():
-                if self.has_colliding(body):
-                    self.on_body_collision(body=body)
+                test, pos_y = self.has_colliding(body)
+                if test:
+                    self.on_body_collision(body=body, pos_y=pos_y)
 
     @abstractmethod
-    def on_body_collision(self, body):
+    def on_body_collision(self, body, pos_Y):
         pass
 
     def queue_free(self):
@@ -52,5 +53,5 @@ class Body2D(Node2D):
                 and other_body2D.get_position().x + other_body2D.get_size().x > self.get_position().x \
                 and self.get_position().y + self.get_size().y > other_body2D.get_position().y \
                 and other_body2D.get_position().y + other_body2D.get_size().y > self.get_position().y:
-            return True
-        return False
+            return True, self.get_position().y - other_body2D.get_position().y
+        return False, 0

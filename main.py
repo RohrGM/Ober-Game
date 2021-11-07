@@ -1,6 +1,7 @@
 import pyxel
 
 from Nodes.BasicNodes.Node2D import Node2D
+from Scenes.Barricade import Barricade
 from Scenes.MenuScene import MenuScene
 from Scenes.OberScene import OberScene
 from Scenes.SpawScene import SpawScene
@@ -15,9 +16,11 @@ class app(Node2D):
         pyxel.init(256, 144)
         pyxel.image(0).load(0, 0, "Assets/Player/sprite.png")
         pyxel.image(1).load(0, 0, "Assets/background.png")
+        pyxel.image(2).load(0, 0, "Assets/static_items.png")
+        self.__barricade = Barricade()
         self.__scenes = {
             "menu": [MenuScene()],
-            "level1": [OberScene(), SpawScene()]
+            "level1": [OberScene(), SpawScene(self.__barricade), self.__barricade]
         }
 
         self.change_scene("menu")
