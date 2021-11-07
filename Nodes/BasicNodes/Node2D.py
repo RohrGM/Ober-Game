@@ -22,7 +22,7 @@ class Node2D:
     def get_children(self):
         return self.__children
 
-    def set_children(self, children):
+    def set_children(self, children: list):
         for node in children:
             node.add_parent(self)
         self.__children = children
@@ -37,3 +37,8 @@ class Node2D:
 
     def set_position(self, position: Vector2):
         self.__position = position
+
+    def queue_free(self):
+        if self.get_parent() is not None:
+            if self in self.get_parent().get_children():
+                self.get_parent().remove_child(self)

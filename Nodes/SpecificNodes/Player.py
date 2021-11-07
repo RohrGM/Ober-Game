@@ -9,10 +9,12 @@ from Util.Vector2 import Vector2
 class Player(Body2D):
     def __init__(self, position: Vector2, speed: int):
         super().__init__(position=position, speed=speed, size=Vector2(14, 28), name="Player")
+        self.__ammo = 7
         self.__fire_rate = 20
         self.__can_shoot = 0
 
     def shoot(self, position: Vector2):
+        self.__ammo -= 1
         bullet = Bullet(position, 10)
         self.get_parent().add_child(bullet)
         self.__can_shoot = self.__fire_rate
@@ -23,11 +25,18 @@ class Player(Body2D):
 
     def can_shoot(self):
         if self.__can_shoot == 0:
-            return True
+            if self.__ammo > 0:
+                return True
         return False
 
     def on_body_collision(self, body):
         pass
+
+    def reload(self):
+        self.__ammo = 7
+
+    def get_ammo(self):
+        return self.__ammo
 
     @staticmethod
     def move(position: Vector2, speed: int):

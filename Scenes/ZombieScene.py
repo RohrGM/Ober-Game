@@ -11,7 +11,7 @@ class ZombieScene(Enemy):
     def __init__(self):
         sp = randrange(1, 3)
 
-        super().__init__(position=Vector2(randrange(270, 350), randrange(50, 110)), speed=0.5 if sp == 1 else 1, size=Vector2(14, 28))
+        super().__init__(position=Vector2(randrange(270, 350), randrange(50, 110)), speed=0.25 if sp == 1 else 1, size=Vector2(14, 28))
 
         self.__body = AnimatedSprite(position=Vector2(0, 0), start_anim="run", animations={
             "run": Animation(speed=5, position=Vector2(0, 128), frames=4)

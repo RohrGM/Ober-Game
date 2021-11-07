@@ -6,6 +6,7 @@ from Scenes.OberScene import OberScene
 from Scenes.SpawScene import SpawScene
 from Scenes.ZombieScene import ZombieScene
 from Util.Vector2 import Vector2
+from Util.YSort import YSort
 
 
 class app(Node2D):
@@ -26,19 +27,9 @@ class app(Node2D):
         self.set_children(self.__scenes[scene_name])
 
     def update(self):
+        self.set_children(YSort(self.get_children()).get_ySort())
         for node in self.get_children():
             node.update()
-
-        '''for enemy in self.__enemies.copy():
-            for bullet in self.__bullets.copy():
-                if enemy.has_colliding(bullet):
-                    enemy.set_alive(False)
-                    bullet.set_alive(False)
-                    if enemy in self.__enemies:
-                        self.__enemies.remove(enemy)
-
-                    if bullet in self.__bullets:
-                        self.__bullets.remove(bullet)'''
 
     def draw(self):
         pyxel.cls(pyxel.COLOR_CYAN)

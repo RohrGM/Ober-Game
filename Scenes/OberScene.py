@@ -27,6 +27,9 @@ class OberScene(Player):
         self.__arms.set_anim_free(free)
         self.__legs.set_anim_free(free)
 
+        if self.__arms.get_current_anim_name() == "reload":
+            self.reload()
+
     def update(self):
         self.check_collision()
         movement, motion = self.move(self.get_position(), self.get_speed())
@@ -36,7 +39,7 @@ class OberScene(Player):
             self.shoot(Vector2(self.get_position().x + 24, self.get_position().y + 14))
             self.__arms.set_current_anim_name("shoot")
 
-        elif pyxel.btn(pyxel.KEY_R) and self.__arms.is_anim_free():
+        elif pyxel.btn(pyxel.KEY_R) and self.__arms.is_anim_free() and self.get_ammo() < 7:
             self.__arms.set_current_anim_name("reload")
 
         self.set_position(movement)
@@ -46,6 +49,10 @@ class OberScene(Player):
             self.__arms.set_current_anim_name(self.update_anim(motion))
 
     def draw(self):
+
+        for i in range(self.get_ammo()):
+            pyxel.blt(245 - (7 * i), 121, 0, 224, 0, 32, 32, pyxel.COLOR_PURPLE)
+
         arms_anim = self.__arms.get_current_animation()
         legs_anim = self.__legs.get_current_animation()
 
