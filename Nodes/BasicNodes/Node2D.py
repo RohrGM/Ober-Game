@@ -1,3 +1,5 @@
+from abc import abstractmethod
+
 from Util.Vector2 import Vector2
 
 
@@ -8,6 +10,14 @@ class Node2D:
         self.__children = []
         self.__parent = None
         self.name = name
+
+    @abstractmethod
+    def update(self):
+        pass
+
+    @abstractmethod
+    def draw(self):
+        pass
 
     def add_child(self, child):
         self.__children.append(child)
@@ -24,7 +34,8 @@ class Node2D:
 
     def set_children(self, children: list):
         for node in children:
-            node.add_parent(self)
+            if node.get_parent() != self:
+                node.add_parent(self)
         self.__children = children
 
     def remove_child(self, child):

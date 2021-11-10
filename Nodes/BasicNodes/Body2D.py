@@ -26,7 +26,7 @@ class Body2D(Node2D):
                     self.on_body_collision(body=body, pos_y=pos_y)
 
     @abstractmethod
-    def on_body_collision(self, body, pos_Y):
+    def on_body_collision(self, body, pos_y):
         pass
 
     def queue_free(self):
@@ -49,7 +49,7 @@ class Body2D(Node2D):
         return self.__layer
 
     def has_colliding(self, other_body2D):
-        if self.get_position().x + self.get_size().x > other_body2D.get_position().x \
+        if self != other_body2D and self.get_position().x + self.get_size().x > other_body2D.get_position().x \
                 and other_body2D.get_position().x + other_body2D.get_size().x > self.get_position().x \
                 and self.get_position().y + self.get_size().y > other_body2D.get_position().y \
                 and other_body2D.get_position().y + other_body2D.get_size().y > self.get_position().y:

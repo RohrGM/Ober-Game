@@ -1,4 +1,4 @@
-from abc import abstractmethod
+from abc import ABC
 
 import pyxel
 from Nodes.BasicNodes.Body2D import Body2D
@@ -6,17 +6,18 @@ from Scenes.Bullet import Bullet
 from Util.Vector2 import Vector2
 
 
-class Player(Body2D):
+class Player(Body2D, ABC):
     def __init__(self, position: Vector2, speed: int):
         super().__init__(position=position, speed=speed, size=Vector2(14, 28), name="Player")
         self.__ammo = 7
         self.__fire_rate = 20
         self.__can_shoot = 0
+        self.__special = .0
+        self.__sp_active = False
 
     def shoot(self, position: Vector2):
         self.__ammo -= 1
-        bullet = Bullet(position, 10)
-        self.get_parent().add_child(bullet)
+        self.get_parent().add_child(Bullet(position, 10, self))
         self.__can_shoot = self.__fire_rate
 
     def update_fire_rate(self):
@@ -37,6 +38,27 @@ class Player(Body2D):
 
     def get_ammo(self):
         return self.__ammo
+
+    def add_special(self):
+        if self.__special < 50 and self.__sp_active is False:
+            self.__special += 2
+
+    def time_sp(self):
+        if self.__sp_active:
+            self.__special -= 0.25
+            if self.__special <= 0:
+                self.__special = 0
+                self.__sp_active = False
+
+    def is_sp_active(self):
+        return self.__sp_active
+
+    def get_special(self):
+        return int(self.__special)
+
+    def active_special(self):
+        self.__sp_active = True
+
 
     @staticmethod
     def move(position: Vector2, speed: int):
@@ -69,11 +91,3 @@ class Player(Body2D):
             return "idle"
         else:
             return "run"
-
-    @abstractmethod
-    def update(self):
-        pass
-
-    @abstractmethod
-    def draw(self):
-        pass

@@ -22,9 +22,7 @@ def quickSort(nodes: list, low: int, high: int):
 
 class YSort:
 
-    def __init__(self, node_list):
-        self.__node_list = node_list
-
-    def get_ySort(self):
-        quickSort(self.__node_list, 0, len(self.__node_list) - 1)
-        return self.__node_list
+    @staticmethod
+    def get_ySort(node_list: list):
+        quickSort(node_list, 0, len(node_list) - 1)
+        return node_list
