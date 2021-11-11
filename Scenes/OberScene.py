@@ -7,6 +7,7 @@ from Util.Vector2 import Vector2
 
 
 class OberScene(Player):
+
     def __init__(self):
         super().__init__(position=Vector2(10, 75), speed=1)
         self.__arms = AnimatedSprite(position=Vector2(0, 0), start_anim="idle", name="arms", animations={

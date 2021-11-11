@@ -11,14 +11,6 @@ class Node2D:
         self.__parent = None
         self.name = name
 
-    @abstractmethod
-    def update(self):
-        pass
-
-    @abstractmethod
-    def draw(self):
-        pass
-
     def add_child(self, child):
         self.__children.append(child)
         child.add_parent(self)
@@ -52,4 +44,4 @@ class Node2D:
     def queue_free(self):
         if self.get_parent() is not None:
             if self in self.get_parent().get_children():
-                self.get_parent().remove_child(self)
+                self.get_parent().remove_child()

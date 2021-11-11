@@ -10,13 +10,13 @@ class Body2D(Node2D):
 
     def __init__(self, position: Vector2, speed: float, size: Vector2, layer: int = None, mask: int = None, name: str = None):
         super().__init__(position, name)
+        Body2D.collision_layer.append(self)
+        Body2D.collision_mask.append(self)
         self.__size = size
         self.__motion = 1
         self.__speed = speed
         self.__layer = layer
         self.__mask = mask
-        Body2D.collision_layer.append(self)
-        Body2D.collision_mask.append(self)
 
     def check_collision(self):
         for body in Body2D.collision_layer.copy():
@@ -34,7 +34,7 @@ class Body2D(Node2D):
             if self in self.get_parent().get_children():
                 Body2D.collision_layer.remove(self)
                 Body2D.collision_mask.remove(self)
-                self.get_parent().remove_child(self)
+                self.get_parent().remove_child()
 
     def get_speed(self):
         return self.__speed

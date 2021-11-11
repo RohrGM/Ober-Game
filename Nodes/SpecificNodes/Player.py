@@ -2,7 +2,7 @@ from abc import ABC
 
 import pyxel
 from Nodes.BasicNodes.Body2D import Body2D
-from Scenes.Bullet import Bullet
+
 from Util.Vector2 import Vector2
 
 
@@ -15,20 +15,7 @@ class Player(Body2D, ABC):
         self.__special = .0
         self.__sp_active = False
 
-    def shoot(self, position: Vector2):
-        self.__ammo -= 1
-        self.get_parent().add_child(Bullet(position, 10, self))
-        self.__can_shoot = self.__fire_rate
 
-    def update_fire_rate(self):
-        if self.__can_shoot > 0:
-            self.__can_shoot -= 1
-
-    def can_shoot(self):
-        if self.__can_shoot == 0:
-            if self.__ammo > 0:
-                return True
-        return False
 
     def on_body_collision(self, body, pos_y):
         pass
