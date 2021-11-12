@@ -17,6 +17,10 @@ class INode2D(ABC):
         pass
 
     @abstractmethod
+    def get_parent(self) -> object:
+        pass
+
+    @abstractmethod
     def remove_parent(self) -> None:
         pass
 
@@ -29,5 +33,21 @@ class INode2D(ABC):
         pass
 
     @abstractmethod
+    def set_position(self, position: Vector2):
+        pass
+
+    @abstractmethod
+    def get_name(self) -> str:
+        pass
+
+    @abstractmethod
     def queue_free(self) -> None:
+        pass
+
+    @abstractmethod
+    def update(self):
+        pass
+
+    @abstractmethod
+    def draw(self):
         pass

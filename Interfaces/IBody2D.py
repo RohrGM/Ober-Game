@@ -7,10 +7,10 @@ from Util.Vector2 import Vector2
 class IBody2D(INode2D, ABC):
 
     @abstractmethod
-    def add_body_on_collision_system(self, layer: int, mask: int, shape_size: Vector2):
+    def on_body_collision(self, body: object, pos_y: int) -> None:
         pass
 
     @abstractmethod
-    def on_body_collision(self, body, pos_y):
+    def get_rect_size(self) -> Vector2:
         pass
 

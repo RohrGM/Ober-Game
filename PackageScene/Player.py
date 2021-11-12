@@ -1,32 +1,25 @@
-import pyxel
-
 from Interfaces.IBody2D import IBody2D
 from Interfaces.INode2D import INode2D
-from Util.Vector2 import Vector2
-from Util.CollisionBody import CollisionBody
-from Util.ChildrenManager import ChildrenManager
 from typing import Type
 
+from Util.ChildrenManager import ChildrenManager
+from Util.CollisionBody import CollisionBody
+from Util.Vector2 import Vector2
+from Util.Weapon import Weapon
 
-class Bullet(IBody2D):
 
-    def __init__(self, position: Vector2, rect_size: Vector2, name: str, agent):
+class Player(IBody2D):
+
+    def __init__(self, position: Vector2, rect_size: Vector2 = Vector2(14, 28), name: str = "Player"):
         self.__children_manager = ChildrenManager(self)
-        self.__collision_body = CollisionBody(agent=self, layer=0, mask=1, rect_size=rect_size)
+        self.__collision_body = CollisionBody(agent=self, layer=99, mask=99, rect_size=rect_size)
+        self.__weapon = Weapon(max_ammo=7, fire_rate=20)
         self.__position = position
         self.__rect_size = rect_size
-        self.__valid = True
         self.__name = name
 
-    def on_body_collision(self, body, pos_y):
-        if body.name == "Enemy" and self.__valid:
-            self.__valid = False
-            self.queue_free()
-            body.take_damage(1)
-            '''if pos_y < body.get_critical_area():
-                self.__agent.add_special()
-                body.take_damage(2)
-            else:'''
+    def on_body_collision(self, body: object, pos_y: int) -> None:
+        pass
 
     def get_rect_size(self):
         return self.__rect_size
@@ -67,12 +60,7 @@ class Bullet(IBody2D):
         self.__collision_body.stop_collision()
 
     def update(self):
-        self.__collision_body.check_collisions()
-        self.set_position(Vector2(self.get_position().x + 10, self.get_position().y))
-
-        if self.get_position().x > 256:
-            self.queue_free()
+        pass
 
     def draw(self):
-        pyxel.rect(self.get_position().x, self.get_position().y, self.get_rect_size().x,
-                   self.get_rect_size().y, 10)
+        pass

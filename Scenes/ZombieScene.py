@@ -1,8 +1,9 @@
 import pyxel
 
-from Nodes.BasicNodes.AnimatedSprite import AnimatedSprite
+from Nodes.BasicNodes.AnimatedSprit import AnimatedSprite
 from Nodes.SpecificNodes.Enemy import Enemy
 from Util.Animation import Animation
+from Util.CollisionBody import CollisionBody
 from Util.Vector2 import Vector2
 from random import randrange
 
@@ -11,6 +12,7 @@ class ZombieScene(Enemy):
 
     def __init__(self):
         sp = randrange(1, 3)
+        self.__collision_body = CollisionBody(agent=self, layer=1, mask=2, rect_size=Vector2(14, 28))
 
         super().__init__(position=Vector2(randrange(270, 350), randrange(70, 110)), speed=0.25 if sp == 1 else 1,
                          size=Vector2(14, 28), critical_area=10)
@@ -39,7 +41,6 @@ class ZombieScene(Enemy):
             self.__body.set_current_anim_name("attack")
 
     def update(self):
-
         if self.__body.is_anim_free():
             if self.__body.get_current_anim_name() == "run":
                 movement = self.move(self.get_position(), self.get_speed())

@@ -34,7 +34,7 @@ class Body2D(Node2D):
             if self in self.get_parent().get_children():
                 Body2D.collision_layer.remove(self)
                 Body2D.collision_mask.remove(self)
-                self.get_parent().remove_child()
+                self.get_parent().remove_child(self)
 
     def get_speed(self):
         return self.__speed

@@ -2,6 +2,8 @@ from abc import ABC
 
 import pyxel
 from Nodes.BasicNodes.Body2D import Body2D
+from PackageScene.Bullet import Bullet
+from Util.ChildrenManager import ChildrenManager
 
 from Util.Vector2 import Vector2
 
@@ -15,10 +17,23 @@ class Player(Body2D, ABC):
         self.__special = .0
         self.__sp_active = False
 
-
-
     def on_body_collision(self, body, pos_y):
         pass
+
+    def shoot(self, position: Vector2):
+        self.__ammo -= 1
+        self.get_parent().add_child(Bullet(position=position, rect_size=Vector2(5, 1), name="Bullet", agent=self))
+        self.__can_shoot = self.__fire_rate
+
+    def update_fire_rate(self):
+        if self.__can_shoot > 0:
+            self.__can_shoot -= 1
+
+    def can_shoot(self):
+        if self.__can_shoot == 0:
+            if self.__ammo > 0:
+                return True
+        return False
 
     def reload(self):
         self.__ammo = 7
@@ -45,7 +60,6 @@ class Player(Body2D, ABC):
 
     def active_special(self):
         self.__sp_active = True
-
 
     @staticmethod
     def move(position: Vector2, speed: int):

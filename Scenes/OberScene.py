@@ -1,15 +1,17 @@
 import pyxel
 
-from Nodes.BasicNodes.AnimatedSprite import AnimatedSprite
+from PackageScene.AnimatedSprite import AnimatedSprite
 from Nodes.SpecificNodes.Player import Player
 from Util.Animation import Animation
 from Util.Vector2 import Vector2
+from Util.Weapon import Weapon
 
 
 class OberScene(Player):
 
     def __init__(self):
         super().__init__(position=Vector2(10, 75), speed=1)
+        self.__weapon = Weapon(max_ammo=7, fire_rate=20)
         self.__arms = AnimatedSprite(position=Vector2(0, 0), start_anim="idle", name="arms", animations={
             "idle": Animation(speed=7, position=Vector2(0, 0), frames=3, size=Vector2(32, 19)),
             "run": Animation(speed=5, position=Vector2(96, 0), frames=4, size=Vector2(32, 19)),
