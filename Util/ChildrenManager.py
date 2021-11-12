@@ -27,6 +27,9 @@ class ChildrenManager:
     def get_parent(self) -> Type[INode2D]:
         return self.__parent
 
+    def get_children(self) -> list:
+        return self.__children
+
     def add_parent(self, parent: Type[INode2D]) -> None:
         self.__parent = parent
 

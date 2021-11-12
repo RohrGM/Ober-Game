@@ -42,11 +42,10 @@ class OberScene(Player):
     def update(self):
         self.check_collision()
         movement, motion = self.move(self.get_position(), self.get_speed())
-        self.update_fire_rate()
+        self.__weapon.update_fire_rate_time()
         self.time_sp()
         if pyxel.btn(pyxel.KEY_SPACE) and self.__arms.is_anim_free():
-            if self.can_shoot():
-                self.shoot(Vector2(self.get_position().x + 24, self.get_position().y + 14))
+            if self.__weapon.shoot(Vector2.sum_vector(self.get_position(), Vector2(24, 14)), self.get_parent()):
                 self.__arms.set_current_anim_name("shoot")
 
             '''elif self.get_ammo() == 0:

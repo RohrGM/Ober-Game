@@ -4,6 +4,7 @@ from Nodes.BasicNodes.Node2D import Node2D
 from Scenes.Barricade import Barricade
 from Scenes.MenuScene import MenuScene
 from Scenes.OberScene import OberScene
+from PackageScene.Player import Player
 from Scenes.SpawScene import SpawScene
 from Util.Vector2 import Vector2
 from Util.YSort import YSort
@@ -18,7 +19,7 @@ class app(Node2D):
         pyxel.image(2).load(0, 0, "Assets/static_items.png")
         self.__scenes = {
             "menu": [MenuScene()],
-            "level1": [OberScene(), SpawScene(), Barricade()]
+            "level1": [Player(), SpawScene(), Barricade()]
         }
 
         self.change_scene("menu")
