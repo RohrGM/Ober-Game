@@ -19,7 +19,7 @@ class Bullet(IBody2D):
         self.__name = name
 
     def on_body_collision(self, body, pos_y):
-        if body.name == "Enemy" and self.__valid:
+        if body.get_name() == "Enemy" and self.__valid:
             self.__valid = False
             self.queue_free()
             body.take_damage(1)
