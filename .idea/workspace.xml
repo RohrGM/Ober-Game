@@ -5,14 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e1d27eb-0f57-480d-817d-c5b708880dff" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/PackageScene/PlayerWeapon.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Factory/BulletFactory.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Factory/GunFactory.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Factory/HeroFactory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/AnimatedSprite.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/AnimatedSprite.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PackageScene/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/Player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scenes/OberScene.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/OberScene.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/ChildrenManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util/ChildrenManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/Weapon.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util/Weapon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Util/Weapon.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

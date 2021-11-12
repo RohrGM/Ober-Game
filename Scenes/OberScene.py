@@ -4,12 +4,12 @@ from PackageScene.AnimatedSprite import AnimatedSprite
 from Nodes.SpecificNodes.Player import Player
 from Util.Animation import Animation
 from Util.Vector2 import Vector2
-from Util.Weapon import Weapon
+
 
 
 class OberScene(Player):
-
-    def __init__(self):
+    pass
+    '''def __init__(self):
         super().__init__(position=Vector2(10, 75), speed=1)
         self.__weapon = Weapon(max_ammo=7, fire_rate=20)
         self.__arms = AnimatedSprite(position=Vector2(0, 0), start_anim="idle", name="arms", animations={
@@ -48,8 +48,8 @@ class OberScene(Player):
             if self.__weapon.shoot(Vector2.sum_vector(self.get_position(), Vector2(24, 14)), self.get_parent()):
                 self.__arms.set_current_anim_name("shoot")
 
-            '''elif self.get_ammo() == 0:
-                self.__arms.set_current_anim_name("reload")'''
+            elif self.get_ammo() == 0:
+                self.__arms.set_current_anim_name("reload")
 
         elif pyxel.btn(pyxel.KEY_R) and self.__arms.is_anim_free() and self.get_ammo() < 7:
             self.__arms.set_current_anim_name("reload")
@@ -74,4 +74,4 @@ class OberScene(Player):
         pyxel.blt(2, 5, 0, 232, 7, 11, 12, pyxel.COLOR_PURPLE)
 
         for node in self.get_children():
-            node.draw()
+            node.draw()'''

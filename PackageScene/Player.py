@@ -1,11 +1,11 @@
 from PackageScene.AnimatedSprite import AnimatedSprite
+from PackageScene.PlayerWeapon import PlayerWeapon
 from Util.ChildrenManager import ChildrenManager
 from Util.CollisionBody import CollisionBody
 from Interfaces.IBody2D import IBody2D
 from Interfaces.INode2D import INode2D
 from Util.Animation import Animation
 from Util.Vector2 import Vector2
-from Util.Weapon import Weapon
 from typing import Type
 
 import pyxel
@@ -16,7 +16,7 @@ class Player(IBody2D):
     def __init__(self, position: Vector2 = Vector2(10, 75), rect_size: Vector2 = Vector2(14, 28), name: str = "Player"):
         self.__children_manager = ChildrenManager(self)
         self.__collision_body = CollisionBody(agent=self, layer=99, mask=99, rect_size=rect_size)
-        self.__weapon = Weapon(max_ammo=7, fire_rate=20)
+        self.__weapon = PlayerWeapon(position=Vector2(0,0), max_ammo=7, fire_rate=20, name="Shotgun")
         self.__position = position
         self.__rect_size = rect_size
         self.__name = name
@@ -40,6 +40,12 @@ class Player(IBody2D):
 
         self.add_child(self.__legs)
         self.add_child(self.__arms)
+        self.add_child(self.__weapon)
+
+    def is_anim_free(self):
+        if self.__legs.is_anim_free() and self.__arms.is_anim_free():
+            return True
+        return False
 
     def on_body_collision(self, body: object, pos_y: int) -> None:
         pass
@@ -102,14 +108,9 @@ class Player(IBody2D):
             self.active_special()'''
 
         self.set_position(movement)
-        self.__legs.set_current_anim_name(self.update_anim(motion))
-
-        if self.__arms.is_anim_free():
-            self.__arms.set_current_anim_name(self.update_anim(motion))
+        self.update_anim("idle" if motion == 0 else "run")
 
     def draw(self):
-        self.__weapon.draw_ammo()
-
         '''pyxel.rect(15, 10, 52, 4, 7 if self.get_special() < 50 else pyxel.frame_count % 16)
         pyxel.rect(16, 11, self.get_special(), 2, 2)
         pyxel.blt(2, 5, 0, 232, 7, 11, 12, pyxel.COLOR_PURPLE)'''
@@ -124,12 +125,13 @@ class Player(IBody2D):
         if self.__arms.get_current_anim_name() == "reload":
             self.__weapon.reload()
 
-    @staticmethod
-    def update_anim(motion):
-        if motion == 0:
-            return "idle"
-        else:
-            return "run"
+    def update_anim(self, new_anim: str):
+
+        if self.__arms.is_anim_free() and self.__arms.is_anim_valid(new_anim):
+            self.__arms.set_current_anim_name(new_anim)
+
+        if self.__legs.is_anim_free() and self.__legs.is_anim_valid(new_anim):
+            self.__legs.set_current_anim_name(new_anim)
 
     @staticmethod
     def move(position: Vector2, speed: int = 1):

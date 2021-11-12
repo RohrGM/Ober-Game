@@ -1,44 +1,48 @@
 import pyxel
 
 from Interfaces.INode2D import INode2D
+from PackageScene.Bullet import Bullet
 from Util.ChildrenManager import ChildrenManager
 from Util.Vector2 import Vector2
-from Util.Animation import Animation
 from typing import Type
 
 
-class AnimatedSprite(INode2D):
+class PlayerWeapon(INode2D):
 
-    def __init__(self, position: Vector2, start_anim: str, animations: dict, name: str) -> None:
+    def __init__(self, position: Vector2, max_ammo: int, fire_rate: int, name: str) -> None:
         self.__children_manager = ChildrenManager(self)
         self.__position = position
-        self.__animations = animations
-        self.__current_anim = start_anim
+        self.__max_ammo = max_ammo
+        self.__ammo = max_ammo
+        self.__fire_rate = fire_rate
+        self.__fire_rate_time = 0
         self.__name = name
-        self.__anim_free = True
+        self.__free = True
 
-    def get_current_animation(self) -> Animation:
-        return self.__animations[self.__current_anim]
-
-    def get_current_anim_name(self) -> str:
-        return self.__current_anim
-
-    def is_anim_valid(self, anim: str) -> bool:
-        if anim in self.__animations.keys():
+    def can_reload(self) -> bool:
+        if self.__ammo < self.__max_ammo:
             return True
         return False
 
-    def set_current_anim_name(self, anim: str) -> None:
-        if self.__animations[anim].is_loop() is not True:
-            self.__anim_free = False
-            self.__animations[anim].set_start()
-        self.__current_anim = anim
+    def can_shoot(self) -> bool:
+        if self.__fire_rate_time <= 0 < self.__ammo:
+            return True
+        return False
 
-    def is_anim_free(self) -> bool:
-        return self.__anim_free
+    def shoot(self, position: Vector2, parent) -> None:
+        if self.can_shoot():
+            self.__ammo -= 1
+            self.__fire_rate_time = self.__fire_rate
+            parent.add_child(Bullet(position=position, rect_size=Vector2(5, 1), name="Bullet", agent=self))
 
-    def set_anim_free(self, free: bool) -> None:
-        self.__anim_free = free
+    def reload(self) -> None:
+        self.__ammo = self.__max_ammo
+
+    def update_fire_rate_time(self):
+        self.__fire_rate_time -= 1
+
+    def set_free(self, free) -> None:
+        self.__free = free
 
     def add_child(self, child: Type[INode2D]) -> None:
         self.__children_manager.add_child(child)
@@ -74,10 +78,8 @@ class AnimatedSprite(INode2D):
             self.__children_manager.get_parent().remove_child(self)
 
     def update(self):
-        pass
+        self.update_fire_rate_time()
 
     def draw(self):
-        ctrl_u, ctrl_v = self.get_current_animation().get_uv()
-        pyxel.blt(self.get_position().x, self.get_position().y, 0, ctrl_u, ctrl_v,
-                  self.get_current_animation().get_size().x, self.get_current_animation().get_size().y,
-                  pyxel.COLOR_PURPLE)
+        for i in range(self.__ammo):
+            pyxel.blt(245 - (7 * i), 128, 0, 224, 6, 7, 13, pyxel.COLOR_PURPLE)
