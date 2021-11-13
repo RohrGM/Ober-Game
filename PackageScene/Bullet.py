@@ -2,6 +2,7 @@ import pyxel
 
 from Interfaces.IBody2D import IBody2D
 from Interfaces.INode2D import INode2D
+from PackageScene.Enemy import Enemy
 from Util.Vector2 import Vector2
 from Util.CollisionBody import CollisionBody
 from Util.ChildrenManager import ChildrenManager
@@ -10,23 +11,24 @@ from typing import Type
 
 class Bullet(IBody2D):
 
-    def __init__(self, position: Vector2, rect_size: Vector2, name: str, agent) -> None:
+    def __init__(self, position: Vector2, rect_size: Vector2, damage: int, name: str, weapon) -> None:
         self.__children_manager = ChildrenManager(self)
         self.__collision_body = CollisionBody(agent=self, layer=0, mask=1, rect_size=rect_size)
         self.__position = position
         self.__rect_size = rect_size
+        self.__damage = damage
+        self.__weapon = weapon
         self.__valid = True
         self.__name = name
 
-    def on_body_collision(self, body, pos_y) -> None:
+    def on_body_collision(self, body: Enemy, pos_y: int) -> None:
         if body.get_name() == "Enemy" and self.__valid:
             self.__valid = False
             self.queue_free()
-            body.take_damage(1, pos_y)
-            '''if pos_y < body.get_critical_area():
-                self.__agent.add_special()
-                body.take_damage(2)
-            else:'''
+            body.take_damage(self.__damage, pos_y)
+            if pos_y < body.get_critical_area():
+                self.__weapon.add_critical_count()
+                body.take_damage(self.__damage * 2, pos_y)
 
     def get_rect_size(self) -> Vector2:
         return self.__rect_size

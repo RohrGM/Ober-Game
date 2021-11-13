@@ -9,13 +9,15 @@ from typing import Type
 
 class PlayerWeapon(INode2D):
 
-    def __init__(self, position: Vector2, max_ammo: int, fire_rate: int) -> None:
+    def __init__(self, position: Vector2, max_ammo: int, fire_rate: int, damage: int) -> None:
         self.__children_manager = ChildrenManager(self)
         self.__position = position
         self.__max_ammo = max_ammo
         self.__ammo = max_ammo
         self.__fire_rate = fire_rate
         self.__fire_rate_time = 0
+        self.__critical_count = 0
+        self.__damage = damage
         self.__free = True
 
     def can_reload(self) -> bool:
@@ -28,11 +30,18 @@ class PlayerWeapon(INode2D):
             return True
         return False
 
+    def add_critical_count(self) -> None:
+        if self.__critical_count < 50:
+            self.__critical_count += 2
+
+    def get_critical_count(self) -> int:
+        return self.__critical_count
+
     def shoot(self, position: Vector2, parent) -> bool:
         if self.can_shoot():
             self.__ammo -= 1
             self.__fire_rate_time = self.__fire_rate
-            parent.add_child(Bullet(position=position, rect_size=Vector2(5, 1), name="Bullet", agent=self))
+            parent.add_child(Bullet(position=position, rect_size=Vector2(5, 1), damage=self.__damage, name="Bullet", weapon=self))
             return True
         return False
 

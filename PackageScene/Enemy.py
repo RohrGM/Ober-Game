@@ -4,7 +4,7 @@ from Util.ChildrenManager import ChildrenManager
 from Util.CollisionBody import CollisionBody
 from Interfaces.IBody2D import IBody2D
 from Interfaces.INode2D import INode2D
-from Util.Animation import Animation
+from Util.AnimationData import AnimationData
 from Util.Vector2 import Vector2
 from random import randrange
 from typing import Type
@@ -25,12 +25,8 @@ class Enemy(IBody2D):
         self.__critical_area = 8
         self.__life = 2
 
-        self.__body = AnimatedSprite(position=Vector2(-14, 0), start_anim="run", animations={
-            "run": Animation(speed=5, position=Vector2(0, 128), frames=4),
-            "attack": Animation(speed=5, position=Vector2(128, 128), frames=4),
-            "dead": Animation(speed=3, position=Vector2(0, 160), frames=5, loop=False, agent=self,
-                              size=Vector2(32, 32)),
-        })
+        self.__body = AnimatedSprite(position=Vector2(-14, 0), start_anim="run", animations=AnimationData.get_anim_list(
+            "zombie_1", ["run", "attack", "dead"], self))
 
         self.add_child(self.__body)
 
