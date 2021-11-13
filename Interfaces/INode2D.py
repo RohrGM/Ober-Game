@@ -37,10 +37,6 @@ class INode2D(ABC):
         pass
 
     @abstractmethod
-    def get_name(self) -> str:
-        pass
-
-    @abstractmethod
     def queue_free(self) -> None:
         pass
 

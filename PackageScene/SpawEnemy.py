@@ -9,10 +9,9 @@ import pyxel
 
 class SpawEnemy(INode2D):
 
-    def __init__(self, position: Vector2 = Vector2(0, 0), name: str = "Main") -> None:
+    def __init__(self, position: Vector2 = Vector2(0, 0)) -> None:
         self.__children_manager = ChildrenManager(self)
         self.__position = position
-        self.__name = name
 
     def add_child(self, child: Type[INode2D]) -> None:
         self.__children_manager.add_child(child)
@@ -39,9 +38,6 @@ class SpawEnemy(INode2D):
 
     def set_position(self, position: Vector2):
         self.__position = position
-
-    def get_name(self) -> str:
-        return self.__name
 
     def queue_free(self) -> None:
         if self.__children_manager.get_parent() is not None:

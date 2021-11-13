@@ -16,12 +16,12 @@ class Player(IBody2D):
     def __init__(self, position: Vector2 = Vector2(10, 75), rect_size: Vector2 = Vector2(14, 28), name: str = "Player") -> None:
         self.__children_manager = ChildrenManager(self)
         self.__collision_body = CollisionBody(agent=self, layer=99, mask=99, rect_size=rect_size)
-        self.__weapon = PlayerWeapon(position=Vector2(0,0), max_ammo=7, fire_rate=20, name="Shotgun")
+        self.__weapon = PlayerWeapon(position=Vector2(0,0), max_ammo=7, fire_rate=20)
         self.__position = position
         self.__rect_size = rect_size
         self.__name = name
 
-        self.__arms = AnimatedSprite(position=Vector2(0, 0), start_anim="idle", name="arms", animations={
+        self.__arms = AnimatedSprite(position=Vector2(0, 0), start_anim="idle", animations={
             "idle": Animation(speed=7, position=Vector2(0, 0), frames=3, size=Vector2(32, 19)),
             "run": Animation(speed=5, position=Vector2(96, 0), frames=4, size=Vector2(32, 19)),
             "shoot": Animation(speed=2, position=Vector2(0, 32), frames=3, loop=False, agent=self,
@@ -32,7 +32,7 @@ class Player(IBody2D):
                               size=Vector2(32, 32)),
 
         })
-        self.__legs = AnimatedSprite(position=Vector2(0, 0), start_anim="idle", name="legs", animations={
+        self.__legs = AnimatedSprite(position=Vector2(0, 0), start_anim="idle", animations={
             "idle": Animation(speed=7, position=Vector2(0, 19), frames=3, size=Vector2(32, 13)),
             "run": Animation(speed=5, position=Vector2(96, 19), frames=4, size=Vector2(32, 13))
         })

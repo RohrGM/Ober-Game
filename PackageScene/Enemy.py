@@ -22,10 +22,10 @@ class Enemy(IBody2D):
         self.__position = position
         self.__rect_size = rect_size
         self.__name = name
-        self.__critical_area = 10
+        self.__critical_area = 8
         self.__life = 2
 
-        self.__body = AnimatedSprite(position=Vector2(-14, 0), start_anim="run", name="body", animations={
+        self.__body = AnimatedSprite(position=Vector2(-14, 0), start_anim="run", animations={
             "run": Animation(speed=5, position=Vector2(0, 128), frames=4),
             "attack": Animation(speed=5, position=Vector2(128, 128), frames=4),
             "dead": Animation(speed=3, position=Vector2(0, 160), frames=5, loop=False, agent=self,
@@ -48,6 +48,9 @@ class Enemy(IBody2D):
         if self.__body.get_current_anim_name() == "dead":
             self.queue_free()
         self.__body.set_anim_free(free)
+
+    def get_critical_area(self) -> int:
+        return self.__critical_area
 
     def on_body_collision(self, body: Type[IBody2D], pos_y: int) -> None:
         if body.get_name() == "Barricade" and self.__body.is_anim_free():

@@ -9,14 +9,13 @@ from typing import Type
 
 class PlayerWeapon(INode2D):
 
-    def __init__(self, position: Vector2, max_ammo: int, fire_rate: int, name: str) -> None:
+    def __init__(self, position: Vector2, max_ammo: int, fire_rate: int) -> None:
         self.__children_manager = ChildrenManager(self)
         self.__position = position
         self.__max_ammo = max_ammo
         self.__ammo = max_ammo
         self.__fire_rate = fire_rate
         self.__fire_rate_time = 0
-        self.__name = name
         self.__free = True
 
     def can_reload(self) -> bool:
@@ -72,9 +71,6 @@ class PlayerWeapon(INode2D):
     def set_position(self, position: Vector2):
         self.__position = position
 
-    def get_name(self) -> str:
-        return self.__name
-
     def queue_free(self) -> None:
         if self.__children_manager.get_parent() is not None:
             self.__children_manager.get_parent().remove_child(self)
@@ -83,5 +79,8 @@ class PlayerWeapon(INode2D):
         self.update_fire_rate_time()
 
     def draw(self) -> None:
+        for i in range(self.__max_ammo):
+            pyxel.rect(250 - (4 * i), 130, 3, 13, 0 if self.__ammo > 0 else pyxel.frame_count % 16)
+
         for i in range(self.__ammo):
-            pyxel.blt(245 - (7 * i), 128, 0, 224, 6, 7, 13, pyxel.COLOR_PURPLE)
+            pyxel.blt(250 - (4 * i), 130, 0, 225, 1, 3, 13, pyxel.COLOR_PURPLE)

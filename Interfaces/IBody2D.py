@@ -14,3 +14,6 @@ class IBody2D(INode2D, ABC):
     def get_rect_size(self) -> Vector2:
         pass
 
+    @abstractmethod
+    def get_name(self) -> str:
+        pass

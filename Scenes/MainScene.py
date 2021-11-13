@@ -14,10 +14,9 @@ from Util.YSort import YSort
 
 class MainScene(INode2D):
 
-    def __init__(self, position: Vector2 = Vector2(0, 0), name: str = "Main") -> None:
+    def __init__(self, position: Vector2 = Vector2(0, 0)) -> None:
         self.__children_manager = ChildrenManager(self)
         self.__position = position
-        self.__name = name
 
         pyxel.init(256, 144)
         pyxel.image(0).load(0, 0, "../Assets/Player/sprite.png")
@@ -60,9 +59,6 @@ class MainScene(INode2D):
 
     def set_position(self, position: Vector2) -> None:
         self.__position = position
-
-    def get_name(self) -> str:
-        return self.__name
 
     def queue_free(self) -> None:
         if self.__children_manager.get_parent() is not None:

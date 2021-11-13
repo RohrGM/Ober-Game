@@ -9,10 +9,9 @@ from Util.Vector2 import Vector2
 
 class HitMark(INode2D):
 
-    def __init__(self, image: str, pos_y: int, position: Vector2 = Vector2(0, 0), name: str = "HitMark") -> None:
+    def __init__(self, image: str, pos_y: int, position: Vector2 = Vector2(0, 0)) -> None:
         self.__children_manager = ChildrenManager(self)
         self.__position = position
-        self.__name = name
         self.__image = image
         self.__pos_y = pos_y
         self.__life = 5
@@ -42,9 +41,6 @@ class HitMark(INode2D):
 
     def set_position(self, position: Vector2):
         self.__position = position
-
-    def get_name(self) -> str:
-        return self.__name
 
     def queue_free(self) -> None:
         if self.__children_manager.get_parent() is not None:
