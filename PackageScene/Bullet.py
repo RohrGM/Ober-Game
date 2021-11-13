@@ -22,7 +22,7 @@ class Bullet(IBody2D):
         if body.get_name() == "Enemy" and self.__valid:
             self.__valid = False
             self.queue_free()
-            body.take_damage(1)
+            body.take_damage(1, pos_y)
             '''if pos_y < body.get_critical_area():
                 self.__agent.add_special()
                 body.take_damage(2)

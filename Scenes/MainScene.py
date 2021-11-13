@@ -58,7 +58,7 @@ class MainScene(INode2D):
             return self.__position
         return Vector2.sum_vector(self.__children_manager.get_parent().get_position(), self.__position)
 
-    def set_position(self, position: Vector2):
+    def set_position(self, position: Vector2) -> None:
         self.__position = position
 
     def get_name(self) -> str:
@@ -68,12 +68,12 @@ class MainScene(INode2D):
         if self.__children_manager.get_parent() is not None:
             self.__children_manager.get_parent().remove_child(self)
 
-    def update(self):
+    def update(self) -> None:
         self.set_children(YSort().get_ySort(self.__children_manager.get_children().copy()))
         for node in self.__children_manager.get_children().copy():
             node.update()
 
-    def draw(self):
+    def draw(self) -> None:
         pyxel.cls(pyxel.COLOR_CYAN)
         pyxel.blt(0, 0, 1, 0, 0, 256, 144)
         for node in self.__children_manager.get_children().copy():

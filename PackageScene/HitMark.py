@@ -1,18 +1,21 @@
-from Util.ChildrenManager import ChildrenManager
-from Interfaces.INode2D import INode2D
-from PackageScene.Enemy import Enemy
-from Util.Vector2 import Vector2
-from random import randrange
 from typing import Type
+
 import pyxel
 
+from Interfaces.INode2D import INode2D
+from Util.ChildrenManager import ChildrenManager
+from Util.Vector2 import Vector2
 
-class SpawEnemy(INode2D):
 
-    def __init__(self, position: Vector2 = Vector2(0, 0), name: str = "Main") -> None:
+class HitMark(INode2D):
+
+    def __init__(self, image: str, pos_y: int, position: Vector2 = Vector2(0, 0), name: str = "HitMark") -> None:
         self.__children_manager = ChildrenManager(self)
         self.__position = position
         self.__name = name
+        self.__image = image
+        self.__pos_y = pos_y
+        self.__life = 5
 
     def add_child(self, child: Type[INode2D]) -> None:
         self.__children_manager.add_child(child)
@@ -48,8 +51,11 @@ class SpawEnemy(INode2D):
             self.__children_manager.get_parent().remove_child(self)
 
     def update(self) -> None:
-        if pyxel.frame_count % randrange(40, 70) == 0:
-            self.get_parent().add_child(Enemy(position=Vector2(randrange(270, 350), randrange(70, 110))))
+        self.__life -= 1
+        if self.__life < 0:
+            self.queue_free()
 
     def draw(self) -> None:
-        pass
+        pyxel.blt(self.get_position().x + 3,
+                  self.get_position().y + self.__pos_y - 3, 0, 232 if self.__image == "head" else 225, 25, 5, 6,
+                  pyxel.COLOR_PURPLE)

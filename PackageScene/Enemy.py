@@ -1,4 +1,5 @@
 from PackageScene.AnimatedSprite import AnimatedSprite
+from PackageScene.HitMark import HitMark
 from Util.ChildrenManager import ChildrenManager
 from Util.CollisionBody import CollisionBody
 from Interfaces.IBody2D import IBody2D
@@ -21,6 +22,7 @@ class Enemy(IBody2D):
         self.__position = position
         self.__rect_size = rect_size
         self.__name = name
+        self.__critical_area = 10
         self.__life = 2
 
         self.__body = AnimatedSprite(position=Vector2(-14, 0), start_anim="run", name="body", animations={
@@ -32,7 +34,8 @@ class Enemy(IBody2D):
 
         self.add_child(self.__body)
 
-    def take_damage(self, value: int) -> None:
+    def take_damage(self, value: int, pos_y: int) -> None:
+        self.add_child(HitMark(pos_y=pos_y, image="head" if pos_y < self.__critical_area else "body"))
         self.__life -= value
         if self.__life <= 0:
             self.dead()
@@ -90,6 +93,9 @@ class Enemy(IBody2D):
             self.__children_manager.get_parent().remove_child(self)
 
     def update(self) -> None:
+        for node in self.__children_manager.get_children():
+            node.update()
+
         if self.__body.is_anim_free():
             if self.__body.get_current_anim_name() == "run":
                 movement = self.move(self.get_position(), 1)

@@ -28,7 +28,6 @@ class CollisionBody:
 
     def check_collisions(self):
         for body in CollisionSystem.collision_layer.copy():
-
             if self.__mask == body.get_layer():
                 test, pos_y = CollisionSystem.has_colliding(self, body)
                 if test:

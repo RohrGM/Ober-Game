@@ -11,7 +11,8 @@ from Util.Vector2 import Vector2
 
 class Barricade(IBody2D):
 
-    def __init__(self, position: Vector2 = Vector2(40, 50), rect_size: Vector2 = Vector2(32, 96), name: str = "Barricade") -> None:
+    def __init__(self, position: Vector2 = Vector2(40, 50), rect_size: Vector2 = Vector2(32, 96),
+                 name: str = "Barricade") -> None:
         self.__children_manager = ChildrenManager(self)
         self.__collision_body = CollisionBody(agent=self, layer=2, mask=3, rect_size=rect_size)
         self.__position = position
