@@ -1,13 +1,13 @@
-from typing import Type
-from random import randrange
-import pyxel
+from PackageScene.AnimatedSprite import AnimatedSprite
+from Util.ChildrenManager import ChildrenManager
+from Util.CollisionBody import CollisionBody
 from Interfaces.IBody2D import IBody2D
 from Interfaces.INode2D import INode2D
 from Util.Animation import Animation
-from Util.ChildrenManager import ChildrenManager
-from Util.CollisionBody import CollisionBody
 from Util.Vector2 import Vector2
-from PackageScene.AnimatedSprite import AnimatedSprite
+from random import randrange
+from typing import Type
+import pyxel
 
 
 class Enemy(IBody2D):

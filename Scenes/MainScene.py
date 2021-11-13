@@ -3,21 +3,40 @@ from typing import Type
 import pyxel
 
 from Interfaces.INode2D import INode2D
-from Nodes.BasicNodes.Node2D import Node2D
+from PackageScene.Barricade import Barricade
+from PackageScene.SpawEnemy import SpawEnemy
+from Scenes.MenuScene import MenuScene
+from PackageScene.Player import Player
+from Scenes.SpawScene import SpawScene
 from Util.ChildrenManager import ChildrenManager
 from Util.Vector2 import Vector2
+from Util.YSort import YSort
 
-MAX_DELAY = 6
 
+class MainScene(INode2D):
 
-class MenuScene(INode2D):
-
-    def __init__(self, position: Vector2 = Vector2(0, 0), name: str = "Menu"):
+    def __init__(self, position: Vector2 = Vector2(0, 0), name: str = "Main") -> None:
         self.__children_manager = ChildrenManager(self)
         self.__position = position
         self.__name = name
-        self.__option = 0
-        self.__delay = 0
+
+        pyxel.init(256, 144)
+        pyxel.image(0).load(0, 0, "../Assets/Player/sprite.png")
+        pyxel.image(1).load(0, 0, "../Assets/background.png")
+        pyxel.image(2).load(0, 0, "../Assets/static_items.png")
+        self.__scenes = {
+            "Menu": [MenuScene()],
+            "Level1": [Player(), SpawEnemy(), Barricade()]
+        }
+
+        self.change_scene("Menu")
+        pyxel.run(self.update, self.draw)
+
+    def start(self) -> None:
+        pass
+
+    def change_scene(self, scene_name: str) -> None:
+        self.set_children(self.__scenes[scene_name])
 
     def add_child(self, child: Type[INode2D]) -> None:
         self.__children_manager.add_child(child)
@@ -53,22 +72,12 @@ class MenuScene(INode2D):
             self.__children_manager.get_parent().remove_child(self)
 
     def update(self):
-        self.__delay -= 1
-        if pyxel.btn(pyxel.KEY_UP) and self.__delay < 0:
-            self.__delay = MAX_DELAY
-            self.__option = 2 if self.__option == 0 else self.__option - 1
-
-        elif pyxel.btn(pyxel.KEY_DOWN) and self.__delay < 0:
-            self.__delay = MAX_DELAY
-            self.__option = 0 if self.__option == 2 else self.__option + 1
-
-        elif pyxel.btn(pyxel.KEY_ENTER):
-            self.get_parent().change_scene("Level1")
+        self.set_children(YSort().get_ySort(self.__children_manager.get_children().copy()))
+        for node in self.__children_manager.get_children().copy():
+            node.update()
 
     def draw(self):
-        pyxel.rect(85, 45, 90, 70, 0)
-        pyxel.text(113, 72, "CONTINUAR", 6 if self.__option == 0 else 1)
-        pyxel.text(113, 80, " INICIAR ", 6 if self.__option == 1 else 1)
-        pyxel.text(113, 88, "  SAIR ", 6 if self.__option == 2 else 1)
-
-
+        pyxel.cls(pyxel.COLOR_CYAN)
+        pyxel.blt(0, 0, 1, 0, 0, 256, 144)
+        for node in self.__children_manager.get_children().copy():
+            node.draw()

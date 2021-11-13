@@ -1,23 +1,20 @@
+from random import randrange
 from typing import Type
+from PackageScene.Enemy import Enemy
 
 import pyxel
 
 from Interfaces.INode2D import INode2D
-from Nodes.BasicNodes.Node2D import Node2D
 from Util.ChildrenManager import ChildrenManager
 from Util.Vector2 import Vector2
 
-MAX_DELAY = 6
 
+class SpawEnemy(INode2D):
 
-class MenuScene(INode2D):
-
-    def __init__(self, position: Vector2 = Vector2(0, 0), name: str = "Menu"):
+    def __init__(self, position: Vector2 = Vector2(0, 0), name: str = "Main") -> None:
         self.__children_manager = ChildrenManager(self)
         self.__position = position
         self.__name = name
-        self.__option = 0
-        self.__delay = 0
 
     def add_child(self, child: Type[INode2D]) -> None:
         self.__children_manager.add_child(child)
@@ -53,22 +50,8 @@ class MenuScene(INode2D):
             self.__children_manager.get_parent().remove_child(self)
 
     def update(self):
-        self.__delay -= 1
-        if pyxel.btn(pyxel.KEY_UP) and self.__delay < 0:
-            self.__delay = MAX_DELAY
-            self.__option = 2 if self.__option == 0 else self.__option - 1
-
-        elif pyxel.btn(pyxel.KEY_DOWN) and self.__delay < 0:
-            self.__delay = MAX_DELAY
-            self.__option = 0 if self.__option == 2 else self.__option + 1
-
-        elif pyxel.btn(pyxel.KEY_ENTER):
-            self.get_parent().change_scene("Level1")
+        if pyxel.frame_count % randrange(20, 30) == 0:
+            self.get_parent().add_child(Enemy(position=Vector2(randrange(270, 350), randrange(70, 110))))
 
     def draw(self):
-        pyxel.rect(85, 45, 90, 70, 0)
-        pyxel.text(113, 72, "CONTINUAR", 6 if self.__option == 0 else 1)
-        pyxel.text(113, 80, " INICIAR ", 6 if self.__option == 1 else 1)
-        pyxel.text(113, 88, "  SAIR ", 6 if self.__option == 2 else 1)
-
-
+        pass

@@ -15,14 +15,16 @@ class ChildrenManager:
 
     def remove_child(self, child: Type[INode2D]) -> None:
         self.__children.remove(child)
-        child.remove_parent(self.__agent)
+        child.remove_parent()
 
     def set_children(self, children: list) -> None:
         for node in self.__children:
             node.remove_parent()
 
         for node in children:
-            node.add_child(self.__agent)
+            node.add_parent(self.__agent)
+
+        self.__children = children
 
     def get_parent(self) -> Type[INode2D]:
         return self.__parent
