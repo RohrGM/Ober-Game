@@ -1,7 +1,7 @@
 import pyxel
 
 from Nodes.BasicNodes.Node2D import Node2D
-from Scenes.Barricade import Barricade
+from PackageScene.Barricade import Barricade
 from Scenes.MenuScene import MenuScene
 from PackageScene.Player import Player
 from Scenes.SpawScene import SpawScene

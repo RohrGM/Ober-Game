@@ -11,10 +11,10 @@ from PackageScene.AnimatedSprite import AnimatedSprite
 
 
 class Enemy(IBody2D):
-
     sp = randrange(1, 5)
 
-    def __init__(self, position: Vector2 = Vector2(randrange(270, 350), randrange(70, 110)), rect_size: Vector2 = Vector2(14, 28),
+    def __init__(self, position: Vector2 = Vector2(randrange(270, 350), randrange(70, 110)),
+                 rect_size: Vector2 = Vector2(14, 28),
                  name: str = "Enemy"):
         self.__children_manager = ChildrenManager(self)
         self.__collision_body = CollisionBody(agent=self, layer=1, mask=2, rect_size=rect_size)
@@ -42,12 +42,12 @@ class Enemy(IBody2D):
         self.__collision_body.stop_collision()
 
     def set_anim_free(self, free):
-        self.__body.set_anim_free(free)
         if self.__body.get_current_anim_name() == "dead":
             self.queue_free()
+        self.__body.set_anim_free(free)
 
     def on_body_collision(self, body, pos_y):
-        if body.get_name() == "Barricade":
+        if body.get_name() == "Barricade" and self.__body.is_anim_free():
             if pyxel.frame_count % 35 == 0:
                 body.take_damage(.5)
 
@@ -89,9 +89,7 @@ class Enemy(IBody2D):
         if self.__children_manager.get_parent() is not None:
             self.__children_manager.get_parent().remove_child(self)
 
-    def update(self):
-        self.__collision_body.check_collisions()
-
+    def update(self) -> None:
         if self.__body.is_anim_free():
             if self.__body.get_current_anim_name() == "run":
                 movement = self.move(self.get_position(), 1)
@@ -99,7 +97,9 @@ class Enemy(IBody2D):
 
             self.__body.set_current_anim_name("run")
 
-    def draw(self):
+        self.__collision_body.check_collisions()
+
+    def draw(self) -> None:
         for node in self.__children_manager.get_children():
             node.draw()
 

@@ -98,10 +98,10 @@ class Player(IBody2D):
 
         if pyxel.btn(pyxel.KEY_SPACE) and self.__arms.is_anim_free():
             if self.__weapon.shoot(Vector2.sum_vector(self.get_position(), Vector2(24, 14)), self.get_parent()):
-                self.__arms.set_current_anim_name("shoot")
+                self.update_anim("shoot")
 
         elif pyxel.btn(pyxel.KEY_R) and self.__arms.is_anim_free() and self.__weapon.can_reload():
-            self.__arms.set_current_anim_name("reload")
+            self.update_anim("reload")
 
         '''elif pyxel.btn(pyxel.KEY_Q) and self.__arms.is_anim_free() and self.get_special() >= 50:
             self.__arms.set_current_anim_name("beer")
@@ -126,7 +126,6 @@ class Player(IBody2D):
             self.__weapon.reload()
 
     def update_anim(self, new_anim: str):
-
         if self.__arms.is_anim_free() and self.__arms.is_anim_valid(new_anim):
             self.__arms.set_current_anim_name(new_anim)
 
