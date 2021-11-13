@@ -9,11 +9,11 @@ class CollisionSystem:
 
     @staticmethod
     def remove_body_on_system(body):
-        try:
+        if body in CollisionSystem.collision_layer:
             CollisionSystem.collision_layer.remove(body)
+
+        if body in CollisionSystem.collision_mask:
             CollisionSystem.collision_mask.remove(body)
-        except():
-            print("Body não encontrado")
 
     @staticmethod
     def has_colliding(body, other_body):

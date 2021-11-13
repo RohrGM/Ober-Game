@@ -10,7 +10,7 @@ from typing import Type
 
 class Bullet(IBody2D):
 
-    def __init__(self, position: Vector2, rect_size: Vector2, name: str, agent):
+    def __init__(self, position: Vector2, rect_size: Vector2, name: str, agent) -> None:
         self.__children_manager = ChildrenManager(self)
         self.__collision_body = CollisionBody(agent=self, layer=0, mask=1, rect_size=rect_size)
         self.__position = position
@@ -18,7 +18,7 @@ class Bullet(IBody2D):
         self.__valid = True
         self.__name = name
 
-    def on_body_collision(self, body, pos_y):
+    def on_body_collision(self, body, pos_y) -> None:
         if body.get_name() == "Enemy" and self.__valid:
             self.__valid = False
             self.queue_free()
@@ -28,7 +28,7 @@ class Bullet(IBody2D):
                 body.take_damage(2)
             else:'''
 
-    def get_rect_size(self):
+    def get_rect_size(self) -> Vector2:
         return self.__rect_size
 
     def add_child(self, child: Type[INode2D]) -> None:
@@ -66,13 +66,13 @@ class Bullet(IBody2D):
 
         self.__collision_body.stop_collision()
 
-    def update(self):
+    def update(self) -> None:
         self.__collision_body.check_collisions()
         self.set_position(Vector2(self.get_position().x + 10, self.get_position().y))
 
         if self.get_position().x > 256:
             self.queue_free()
 
-    def draw(self):
+    def draw(self) -> None:
         pyxel.rect(self.get_position().x, self.get_position().y, self.get_rect_size().x,
                    self.get_rect_size().y, 10)

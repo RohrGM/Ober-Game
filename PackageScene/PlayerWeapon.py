@@ -40,7 +40,7 @@ class PlayerWeapon(INode2D):
     def reload(self) -> None:
         self.__ammo = self.__max_ammo
 
-    def update_fire_rate_time(self):
+    def update_fire_rate_time(self) -> None:
         self.__fire_rate_time -= 1
 
     def set_free(self, free) -> None:
@@ -79,9 +79,9 @@ class PlayerWeapon(INode2D):
         if self.__children_manager.get_parent() is not None:
             self.__children_manager.get_parent().remove_child(self)
 
-    def update(self):
+    def update(self) -> None:
         self.update_fire_rate_time()
 
-    def draw(self):
+    def draw(self) -> None:
         for i in range(self.__ammo):
             pyxel.blt(245 - (7 * i), 128, 0, 224, 6, 7, 13, pyxel.COLOR_PURPLE)

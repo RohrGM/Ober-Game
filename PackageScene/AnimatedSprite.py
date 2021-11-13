@@ -73,10 +73,10 @@ class AnimatedSprite(INode2D):
         if self.__children_manager.get_parent() is not None:
             self.__children_manager.get_parent().remove_child(self)
 
-    def update(self):
+    def update(self) -> None:
         pass
 
-    def draw(self):
+    def draw(self) -> None:
         ctrl_u, ctrl_v = self.get_current_animation().get_uv()
         pyxel.blt(self.get_position().x, self.get_position().y, 0, ctrl_u, ctrl_v,
                   self.get_current_animation().get_size().x, self.get_current_animation().get_size().y,

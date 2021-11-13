@@ -13,7 +13,7 @@ import pyxel
 
 class Player(IBody2D):
 
-    def __init__(self, position: Vector2 = Vector2(10, 75), rect_size: Vector2 = Vector2(14, 28), name: str = "Player"):
+    def __init__(self, position: Vector2 = Vector2(10, 75), rect_size: Vector2 = Vector2(14, 28), name: str = "Player") -> None:
         self.__children_manager = ChildrenManager(self)
         self.__collision_body = CollisionBody(agent=self, layer=99, mask=99, rect_size=rect_size)
         self.__weapon = PlayerWeapon(position=Vector2(0,0), max_ammo=7, fire_rate=20, name="Shotgun")
@@ -42,7 +42,7 @@ class Player(IBody2D):
         self.add_child(self.__arms)
         self.add_child(self.__weapon)
 
-    def is_anim_free(self):
+    def is_anim_free(self) -> bool:
         if self.__legs.is_anim_free() and self.__arms.is_anim_free():
             return True
         return False
@@ -50,7 +50,7 @@ class Player(IBody2D):
     def on_body_collision(self, body: object, pos_y: int) -> None:
         pass
 
-    def get_rect_size(self):
+    def get_rect_size(self) -> Vector2:
         return self.__rect_size
 
     def add_child(self, child: Type[INode2D]) -> None:
@@ -79,7 +79,7 @@ class Player(IBody2D):
             return self.__position
         return Vector2.sum_vector(self.__children_manager.get_parent().get_position(), self.__position)
 
-    def set_position(self, position: Vector2):
+    def set_position(self, position: Vector2) -> None:
         self.__position = position
 
     def get_name(self) -> str:
@@ -91,7 +91,7 @@ class Player(IBody2D):
 
         self.__collision_body.stop_collision()
 
-    def update(self):
+    def update(self) -> None:
         self.__collision_body.check_collisions()
         movement, motion = self.move(self.get_position())
         self.__weapon.update_fire_rate_time()
@@ -110,7 +110,7 @@ class Player(IBody2D):
         self.set_position(movement)
         self.update_anim("idle" if motion == 0 else "run")
 
-    def draw(self):
+    def draw(self) -> None:
         '''pyxel.rect(15, 10, 52, 4, 7 if self.get_special() < 50 else pyxel.frame_count % 16)
         pyxel.rect(16, 11, self.get_special(), 2, 2)
         pyxel.blt(2, 5, 0, 232, 7, 11, 12, pyxel.COLOR_PURPLE)'''
@@ -118,14 +118,14 @@ class Player(IBody2D):
         for node in self.get_children():
             node.draw()
 
-    def set_anim_free(self, free):
+    def set_anim_free(self, free) -> None:
         self.__arms.set_anim_free(free)
         self.__legs.set_anim_free(free)
 
         if self.__arms.get_current_anim_name() == "reload":
             self.__weapon.reload()
 
-    def update_anim(self, new_anim: str):
+    def update_anim(self, new_anim: str) -> None:
         if self.__arms.is_anim_free() and self.__arms.is_anim_valid(new_anim):
             self.__arms.set_current_anim_name(new_anim)
 
@@ -133,7 +133,7 @@ class Player(IBody2D):
             self.__legs.set_current_anim_name(new_anim)
 
     @staticmethod
-    def move(position: Vector2, speed: int = 1):
+    def move(position: Vector2, speed: int = 1) -> None:
         motion = 0
         if pyxel.btn(pyxel.KEY_W):
             position.y -= speed

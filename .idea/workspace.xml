@@ -5,13 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e1d27eb-0f57-480d-817d-c5b708880dff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PackageScene/SpawEnemy.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scenes/MainScene.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interfaces/INode2D.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interfaces/INode2D.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nodes/BasicNodes/Body2D.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nodes/BasicNodes/Node2D.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nodes/SpecificNodes/Enemy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Nodes/SpecificNodes/Player.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/AnimatedSprite.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/AnimatedSprite.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/Barricade.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/Barricade.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/Bullet.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/Bullet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PackageScene/Enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/Enemy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/Player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/PlayerWeapon.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/PlayerWeapon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/SpawEnemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/SpawEnemy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/Barricade.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/MainScene.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/MainScene.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scenes/MenuScene.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/MenuScene.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/ChildrenManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util/ChildrenManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/OberScene.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/SpawScene.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/ZombieScene.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

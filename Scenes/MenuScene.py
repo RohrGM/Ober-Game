@@ -3,7 +3,6 @@ from typing import Type
 import pyxel
 
 from Interfaces.INode2D import INode2D
-from Nodes.BasicNodes.Node2D import Node2D
 from Util.ChildrenManager import ChildrenManager
 from Util.Vector2 import Vector2
 

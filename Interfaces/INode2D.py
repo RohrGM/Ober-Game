@@ -45,9 +45,9 @@ class INode2D(ABC):
         pass
 
     @abstractmethod
-    def update(self):
+    def update(self) -> None:
         pass
 
     @abstractmethod
-    def draw(self):
+    def draw(self) -> None:
         pass

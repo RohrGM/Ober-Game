@@ -7,7 +7,6 @@ from PackageScene.Barricade import Barricade
 from PackageScene.SpawEnemy import SpawEnemy
 from Scenes.MenuScene import MenuScene
 from PackageScene.Player import Player
-from Scenes.SpawScene import SpawScene
 from Util.ChildrenManager import ChildrenManager
 from Util.Vector2 import Vector2
 from Util.YSort import YSort
@@ -29,11 +28,9 @@ class MainScene(INode2D):
             "Level1": [Player(), SpawEnemy(), Barricade()]
         }
 
+    def start(self) -> None:
         self.change_scene("Menu")
         pyxel.run(self.update, self.draw)
-
-    def start(self) -> None:
-        pass
 
     def change_scene(self, scene_name: str) -> None:
         self.set_children(self.__scenes[scene_name])

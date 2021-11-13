@@ -15,7 +15,7 @@ class Enemy(IBody2D):
 
     def __init__(self, position: Vector2 = Vector2(randrange(270, 350), randrange(70, 110)),
                  rect_size: Vector2 = Vector2(14, 28),
-                 name: str = "Enemy"):
+                 name: str = "Enemy") -> None:
         self.__children_manager = ChildrenManager(self)
         self.__collision_body = CollisionBody(agent=self, layer=1, mask=2, rect_size=rect_size)
         self.__position = position
@@ -32,28 +32,28 @@ class Enemy(IBody2D):
 
         self.add_child(self.__body)
 
-    def take_damage(self, value: int):
+    def take_damage(self, value: int) -> None:
         self.__life -= value
         if self.__life <= 0:
             self.dead()
 
-    def dead(self):
+    def dead(self) -> None:
         self.__body.set_current_anim_name("dead")
         self.__collision_body.stop_collision()
 
-    def set_anim_free(self, free):
+    def set_anim_free(self, free) -> None:
         if self.__body.get_current_anim_name() == "dead":
             self.queue_free()
         self.__body.set_anim_free(free)
 
-    def on_body_collision(self, body, pos_y):
+    def on_body_collision(self, body: Type[IBody2D], pos_y: int) -> None:
         if body.get_name() == "Barricade" and self.__body.is_anim_free():
             if pyxel.frame_count % 35 == 0:
                 body.take_damage(.5)
 
             self.__body.set_current_anim_name("attack")
 
-    def get_rect_size(self):
+    def get_rect_size(self) -> Vector2:
         return self.__rect_size
 
     def add_child(self, child: Type[INode2D]) -> None:

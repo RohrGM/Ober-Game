@@ -11,7 +11,7 @@ from Util.Vector2 import Vector2
 
 class Barricade(IBody2D):
 
-    def __init__(self, position: Vector2 = Vector2(40, 50), rect_size: Vector2 = Vector2(32, 96), name: str = "Barricade"):
+    def __init__(self, position: Vector2 = Vector2(40, 50), rect_size: Vector2 = Vector2(32, 96), name: str = "Barricade") -> None:
         self.__children_manager = ChildrenManager(self)
         self.__collision_body = CollisionBody(agent=self, layer=2, mask=3, rect_size=rect_size)
         self.__position = position
@@ -19,16 +19,16 @@ class Barricade(IBody2D):
         self.__name = name
         self.__life = 100
 
-    def take_damage(self, value: float):
+    def take_damage(self, value: float) -> None:
         self.__life -= value
 
         if self.__life <= 0:
             self.queue_free()
 
-    def on_body_collision(self, body, pos_y):
+    def on_body_collision(self, body, pos_y) -> None:
         pass
 
-    def get_rect_size(self):
+    def get_rect_size(self) -> Vector2:
         return self.__rect_size
 
     def add_child(self, child: Type[INode2D]) -> None:
@@ -66,10 +66,10 @@ class Barricade(IBody2D):
 
         self.__collision_body.stop_collision()
 
-    def update(self):
+    def update(self) -> None:
         pass
 
-    def draw(self):
+    def draw(self) -> None:
         pyxel.text(50, 40, str(int(self.__life)), 8)
         pyxel.blt(self.get_position().x,
                   self.get_position().y, 2, 0, 0, 32, 96, pyxel.COLOR_PURPLE)

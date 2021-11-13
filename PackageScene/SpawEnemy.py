@@ -1,12 +1,10 @@
+from Util.ChildrenManager import ChildrenManager
+from Interfaces.INode2D import INode2D
+from PackageScene.Enemy import Enemy
+from Util.Vector2 import Vector2
 from random import randrange
 from typing import Type
-from PackageScene.Enemy import Enemy
-
 import pyxel
-
-from Interfaces.INode2D import INode2D
-from Util.ChildrenManager import ChildrenManager
-from Util.Vector2 import Vector2
 
 
 class SpawEnemy(INode2D):
@@ -49,9 +47,9 @@ class SpawEnemy(INode2D):
         if self.__children_manager.get_parent() is not None:
             self.__children_manager.get_parent().remove_child(self)
 
-    def update(self):
+    def update(self) -> None:
         if pyxel.frame_count % randrange(20, 30) == 0:
             self.get_parent().add_child(Enemy(position=Vector2(randrange(270, 350), randrange(70, 110))))
 
-    def draw(self):
+    def draw(self) -> None:
         pass
