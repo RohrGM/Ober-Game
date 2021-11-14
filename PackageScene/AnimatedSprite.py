@@ -54,11 +54,14 @@ class AnimatedSprite(INode2D):
     def remove_parent(self) -> None:
         self.__children_manager.remove_parent()
 
+    def get_children(self) -> list:
+        return self.__children_manager.get_children()
+
     def set_children(self, children: list) -> None:
         self.__children_manager.set_children(children)
 
     def get_position(self) -> Vector2:
-        if self.__children_manager.get_parent() is None:
+        if self.get_parent() is None:
             return self.__position
         return Vector2.sum_vector(self.__children_manager.get_parent().get_position(), self.__position)
 
@@ -66,8 +69,8 @@ class AnimatedSprite(INode2D):
         self.__position = position
 
     def queue_free(self) -> None:
-        if self.__children_manager.get_parent() is not None:
-            self.__children_manager.get_parent().remove_child(self)
+        if self.get_parent() is not None:
+            self.remove_child(self)
 
     def update(self) -> None:
         pass

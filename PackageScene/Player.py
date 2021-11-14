@@ -4,6 +4,7 @@ from PackageScene.PlayerWeapon import PlayerWeapon
 from Util.ChildrenManager import ChildrenManager
 from Util.AnimationData import AnimationData
 from Util.CollisionBody import CollisionBody
+from Util.BodyMoviment import BodyMoviment
 from Interfaces.IBody2D import IBody2D
 from Interfaces.INode2D import INode2D
 from Util.Vector2 import Vector2
@@ -14,7 +15,8 @@ import pyxel
 
 class Player(IBody2D):
 
-    def __init__(self, position: Vector2 = Vector2(10, 75), rect_size: Vector2 = Vector2(14, 28), name: str = "Player") -> None:
+    def __init__(self, position: Vector2 = Vector2(10, 75), rect_size: Vector2 = Vector2(14, 28),
+                 name: str = "Player") -> None:
         self.__children_manager = ChildrenManager(self)
         self.__collision_body = CollisionBody(agent=self, layer=99, mask=99, rect_size=rect_size)
         self.__weapon = PlayerWeapon(position=Vector2(0, 0), max_ammo=7, fire_rate=20, damage=1)
@@ -22,12 +24,14 @@ class Player(IBody2D):
         self.__rect_size = rect_size
         self.__name = name
         self.__special = PlayerSpecial()
+        self.__arms = AnimatedSprite(position=Vector2(0, 0), start_anim="arms_idle",
+                                     animations=AnimationData.get_anim_list(
+                                         "player_1",
+                                         ["arms_idle", "arms_run", "arms_shoot", "arms_reload", "arms_beer"], self))
 
-        self.__arms = AnimatedSprite(position=Vector2(0, 0), start_anim="arms_idle", animations=AnimationData.get_anim_list(
-            "player_1", ["arms_idle", "arms_run", "arms_shoot", "arms_reload", "arms_beer"], self))
-
-        self.__legs = AnimatedSprite(position=Vector2(0, 19), start_anim="legs_idle", animations=AnimationData.get_anim_list(
-            "player_1", ["legs_idle", "legs_run"], self))
+        self.__legs = AnimatedSprite(position=Vector2(0, 19), start_anim="legs_idle",
+                                     animations=AnimationData.get_anim_list(
+                                         "player_1", ["legs_idle", "legs_run"], self))
 
         self.add_child(self.__legs)
         self.add_child(self.__arms)
@@ -39,8 +43,24 @@ class Player(IBody2D):
             return True
         return False
 
-    def get_special(self) -> int:
+    def get_special_count(self) -> int:
         return self.__weapon.get_critical_count()
+
+    def set_anim_free(self, free) -> None:
+        self.__arms.set_anim_free(free)
+        self.__legs.set_anim_free(free)
+
+        if self.__arms.get_current_anim_name() == "arms_reload":
+            self.__weapon.reload()
+        elif self.__arms.get_current_anim_name() == "arms_beer":
+            self.__weapon.set_critical_count(0)
+
+    def update_anim(self, new_anim: str) -> None:
+        if self.__arms.is_anim_free() and self.__arms.is_anim_valid("arms_" + new_anim):
+            self.__arms.set_current_anim_name("arms_" + new_anim)
+
+        if self.__legs.is_anim_free() and self.__legs.is_anim_valid("legs_" + new_anim):
+            self.__legs.set_current_anim_name("legs_" + new_anim)
 
     def on_body_collision(self, body: object, pos_y: int) -> None:
         pass
@@ -70,9 +90,9 @@ class Player(IBody2D):
         self.__children_manager.set_children(children)
 
     def get_position(self) -> Vector2:
-        if self.__children_manager.get_parent() is None:
+        if self.get_parent() is None:
             return self.__position
-        return Vector2.sum_vector(self.__children_manager.get_parent().get_position(), self.__position)
+        return Vector2.sum_vector(self.get_parent().get_position(), self.__position)
 
     def set_position(self, position: Vector2) -> None:
         self.__position = position
@@ -81,15 +101,14 @@ class Player(IBody2D):
         return self.__name
 
     def queue_free(self) -> None:
-        if self.__children_manager.get_parent() is not None:
-            self.__children_manager.get_parent().remove_child(self)
+        if self.get_parent() is not None:
+            self.get_parent().remove_child(self)
 
         self.__collision_body.stop_collision()
 
     def update(self) -> None:
         self.__collision_body.check_collisions()
-        movement, motion = self.move(self.get_position())
-        self.__weapon.update_fire_rate_time()
+        movement, motion = BodyMoviment.control_moviment(self.get_position(), 1)
 
         if pyxel.btn(pyxel.KEY_SPACE) and self.__arms.is_anim_free():
             if self.__weapon.shoot(Vector2.sum_vector(self.get_position(), Vector2(24, 14)), self.get_parent()):
@@ -98,58 +117,14 @@ class Player(IBody2D):
         elif pyxel.btn(pyxel.KEY_R) and self.__arms.is_anim_free() and self.__weapon.can_reload():
             self.update_anim("reload")
 
-        elif pyxel.btn(pyxel.KEY_Q) and self.__arms.is_anim_free() and self.get_special() >= 50:
-            self.__arms.set_current_anim_name("beer")
+        elif pyxel.btn(pyxel.KEY_Q) and self.__arms.is_anim_free() and self.get_special_count() >= 50:
+            self.update_anim("beer")
 
         self.set_position(movement)
         self.update_anim("idle" if motion == 0 else "run")
+        for node in self.get_children():
+            node.update()
 
     def draw(self) -> None:
-        '''pyxel.rect(15, 10, 52, 4, 7 if self.get_special() < 50 else pyxel.frame_count % 16)
-        pyxel.rect(16, 11, self.get_special(), 2, 2)
-        pyxel.blt(2, 5, 0, 232, 7, 11, 12, pyxel.COLOR_PURPLE)'''
-
         for node in self.get_children():
             node.draw()
-
-    def set_anim_free(self, free) -> None:
-        self.__arms.set_anim_free(free)
-        self.__legs.set_anim_free(free)
-
-        if self.__arms.get_current_anim_name() == "arms_reload":
-            self.__weapon.reload()
-        elif self.__arms.get_current_anim_name() == "arms_beer":
-            self._active_special()
-
-
-    def update_anim(self, new_anim: str) -> None:
-        if self.__arms.is_anim_free() and self.__arms.is_anim_valid("arms_"+new_anim):
-            self.__arms.set_current_anim_name("arms_"+new_anim)
-
-        if self.__legs.is_anim_free() and self.__legs.is_anim_valid("legs_"+new_anim):
-            self.__legs.set_current_anim_name("legs_"+new_anim)
-
-    @staticmethod
-    def move(position: Vector2, speed: int = 1) -> None:
-        motion = 0
-        if pyxel.btn(pyxel.KEY_W):
-            position.y -= speed
-            motion = 1
-
-        if pyxel.btn(pyxel.KEY_S):
-            position.y += speed
-            motion = 1
-
-        if pyxel.btn(pyxel.KEY_D):
-            position.x += speed
-            motion = 1
-
-        if pyxel.btn(pyxel.KEY_A):
-            position.x -= speed
-            motion = -1
-
-        position.y = max(position.y, 50)
-        position.y = min(position.y, 110)
-        position.x = max(position.x, 0)
-        position.x = min(position.x, 25)
-        return position, motion

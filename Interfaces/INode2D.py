@@ -25,6 +25,10 @@ class INode2D(ABC):
         pass
 
     @abstractmethod
+    def get_children(self) -> list:
+        pass
+
+    @abstractmethod
     def set_children(self, children: list) -> None:
         pass
 

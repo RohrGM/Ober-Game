@@ -32,6 +32,9 @@ class MenuScene(INode2D):
     def remove_parent(self) -> None:
         self.__children_manager.remove_parent()
 
+    def get_children(self) -> list:
+        return self.__children_manager.get_children()
+
     def set_children(self, children: list) -> None:
         self.__children_manager.set_children(children)
 

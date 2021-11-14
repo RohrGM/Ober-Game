@@ -52,6 +52,9 @@ class MainScene(INode2D):
     def set_children(self, children: list) -> None:
         self.__children_manager.set_children(children)
 
+    def get_children(self) -> list:
+        return self.__children_manager.get_children()
+
     def get_position(self) -> Vector2:
         if self.__children_manager.get_parent() is None:
             return self.__position
@@ -61,16 +64,16 @@ class MainScene(INode2D):
         self.__position = position
 
     def queue_free(self) -> None:
-        if self.__children_manager.get_parent() is not None:
-            self.__children_manager.get_parent().remove_child(self)
+        if self.get_parent() is not None:
+            self.get_parent().remove_child(self)
 
     def update(self) -> None:
-        self.set_children(YSort().get_ySort(self.__children_manager.get_children().copy()))
-        for node in self.__children_manager.get_children().copy():
+        self.set_children(YSort().get_ySort(self.get_children().copy()))
+        for node in self.get_children().copy():
             node.update()
 
     def draw(self) -> None:
         pyxel.cls(pyxel.COLOR_CYAN)
         pyxel.blt(0, 0, 1, 0, 0, 256, 144)
-        for node in self.__children_manager.get_children().copy():
+        for node in self.get_children().copy():
             node.draw()

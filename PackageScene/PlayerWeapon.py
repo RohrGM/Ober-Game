@@ -37,6 +37,9 @@ class PlayerWeapon(INode2D):
     def get_critical_count(self) -> int:
         return self.__critical_count
 
+    def set_critical_count(self, critical_count: int) -> None:
+        self.__critical_count = critical_count
+
     def shoot(self, position: Vector2, parent) -> bool:
         if self.can_shoot():
             self.__ammo -= 1
@@ -72,17 +75,20 @@ class PlayerWeapon(INode2D):
     def set_children(self, children: list) -> None:
         self.__children_manager.set_children(children)
 
+    def get_children(self) -> list:
+        return self.__children_manager.get_children()
+
     def get_position(self) -> Vector2:
-        if self.__children_manager.get_parent() is None:
+        if self.get_parent() is None:
             return self.__position
-        return Vector2.sum_vector(self.__children_manager.get_parent().get_position(), self.__position)
+        return Vector2.sum_vector(self.get_parent().get_position(), self.__position)
 
     def set_position(self, position: Vector2):
         self.__position = position
 
     def queue_free(self) -> None:
-        if self.__children_manager.get_parent() is not None:
-            self.__children_manager.get_parent().remove_child(self)
+        if self.get_parent() is not None:
+            self.get_parent().remove_child(self)
 
     def update(self) -> None:
         self.update_fire_rate_time()

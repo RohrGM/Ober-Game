@@ -47,6 +47,9 @@ class Barricade(IBody2D):
     def remove_parent(self) -> None:
         self.__children_manager.remove_parent()
 
+    def get_children(self) -> list:
+        return self.__children_manager.get_children()
+
     def set_children(self, children: list) -> None:
         self.__children_manager.set_children(children)
 
@@ -62,8 +65,8 @@ class Barricade(IBody2D):
         return self.__name
 
     def queue_free(self) -> None:
-        if self.__children_manager.get_parent() is not None:
-            self.__children_manager.get_parent().remove_child(self)
+        if self.get_parent() is not None:
+            self.get_parent().remove_child(self)
 
         self.__collision_body.stop_collision()
 

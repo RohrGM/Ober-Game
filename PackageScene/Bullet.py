@@ -1,9 +1,9 @@
 import pyxel
-
 from Interfaces.IBody2D import IBody2D
 from Interfaces.INode2D import INode2D
 from PackageScene.Enemy import Enemy
 from Util.Vector2 import Vector2
+from Util.BodyMoviment import BodyMoviment
 from Util.CollisionBody import CollisionBody
 from Util.ChildrenManager import ChildrenManager
 from typing import Type
@@ -48,6 +48,9 @@ class Bullet(IBody2D):
     def remove_parent(self) -> None:
         self.__children_manager.remove_parent()
 
+    def get_children(self) -> list:
+        return self.__children_manager.get_children()
+
     def set_children(self, children: list) -> None:
         self.__children_manager.set_children(children)
 
@@ -63,14 +66,14 @@ class Bullet(IBody2D):
         return self.__name
 
     def queue_free(self) -> None:
-        if self.__children_manager.get_parent() is not None:
-            self.__children_manager.get_parent().remove_child(self)
+        if self.get_parent() is not None:
+            self.get_parent().remove_child(self)
 
         self.__collision_body.stop_collision()
 
     def update(self) -> None:
         self.__collision_body.check_collisions()
-        self.set_position(Vector2(self.get_position().x + 10, self.get_position().y))
+        self.set_position(BodyMoviment.simple_moviment(self.get_position(), "right", 10))
 
         if self.get_position().x > 256:
             self.queue_free()

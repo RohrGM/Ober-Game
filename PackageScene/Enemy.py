@@ -5,6 +5,7 @@ from Util.CollisionBody import CollisionBody
 from Interfaces.IBody2D import IBody2D
 from Interfaces.INode2D import INode2D
 from Util.AnimationData import AnimationData
+from Util.BodyMoviment import BodyMoviment
 from Util.Vector2 import Vector2
 from random import randrange
 from typing import Type
@@ -73,6 +74,9 @@ class Enemy(IBody2D):
     def remove_parent(self) -> None:
         self.__children_manager.remove_parent()
 
+    def get_children(self) -> list:
+        return self.__children_manager.get_children()
+
     def set_children(self, children: list) -> None:
         self.__children_manager.set_children(children)
 
@@ -88,27 +92,21 @@ class Enemy(IBody2D):
         return self.__name
 
     def queue_free(self) -> None:
-        if self.__children_manager.get_parent() is not None:
-            self.__children_manager.get_parent().remove_child(self)
+        if self.get_parent() is not None:
+            self.get_parent().remove_child(self)
 
     def update(self) -> None:
-        for node in self.__children_manager.get_children():
+        for node in self.get_children():
             node.update()
 
         if self.__body.is_anim_free():
             if self.__body.get_current_anim_name() == "run":
-                movement = self.move(self.get_position(), 1)
-                self.set_position(movement)
+                self.set_position(BodyMoviment.simple_moviment(self.get_position(), "left", 1))
 
             self.__body.set_current_anim_name("run")
 
         self.__collision_body.check_collisions()
 
     def draw(self) -> None:
-        for node in self.__children_manager.get_children():
+        for node in self.get_children():
             node.draw()
-
-    @staticmethod
-    def move(position: Vector2, speed: int):
-        position.x -= speed
-        return position
