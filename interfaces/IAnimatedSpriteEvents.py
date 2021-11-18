@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class IAnimatedSpriteEvents(ABC):
 
     @abstractmethod
-    def animation_finish_event(self, animation_name: str) -> None:
+    def animation_finished_event(self, animation_name: str) -> None:
         pass
 
     @abstractmethod

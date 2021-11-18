@@ -10,9 +10,10 @@ class AnimatedSprite(IAnimatedSpriteEvents, ISubscriber, IOnPyxel):
                  reference_pos: Vector2 = Vector2(0, 0)) -> None:
         self.__position = position
         self.__reference_pos = reference_pos
+
         self.__animations = AnimationData.get_anim_list(character, list_name, self)
         self.__current_anim = ""
-        self.__events = {"animation_finish": [], "locked_animation": []}
+        self.__events = {"animation_finished": [], "locked_animation": []}
         self.set_current_anim(start_anim)
 
     def set_current_anim(self, anim_name: str) -> None:
@@ -29,13 +30,14 @@ class AnimatedSprite(IAnimatedSpriteEvents, ISubscriber, IOnPyxel):
 
     def end_no_loop_anim(self) -> None:
         self.locked_animation_event(False)
+        self.animation_finished_event(self.__current_anim)
 
     def get_position(self):
-        return Vector2.sum_vector(self.__position, self.__reference_pos)
+        return Vector2.sum(self.__position, self.__reference_pos)
 
-    def animation_finish_event(self, animation_name: str) -> None:
-        for func in self.__events["animation_finish"]:
-            func()
+    def animation_finished_event(self, animation_name: str) -> None:
+        for func in self.__events["animation_finished"]:
+            func(animation_name)
 
     def locked_animation_event(self, state: bool) -> None:
         for func in self.__events["locked_animation"]:

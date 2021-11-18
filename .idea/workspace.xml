@@ -5,47 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e1d27eb-0f57-480d-817d-c5b708880dff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Interfaces/ISubscriber.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PackageScene/Weapon.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scenes/Player.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scenes/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/player/sprite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/interfaces/IAnimatedSpriteEvents.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/interfaces/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Interfaces/IWeaponEvents.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PackageScene/Bullet.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Scenes/Enemy.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Player/player.pyxres" beforeDir="false" afterPath="$PROJECT_DIR$/assets/player/player.pyxres" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Player/sprite.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Player/sprite2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/player/sprite2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/background.aseprite" beforeDir="false" afterPath="$PROJECT_DIR$/assets/background.aseprite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/background.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/background.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/pallet.aseprite" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pallet.aseprite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/static_items.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/static_items.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interfaces/IBody2D.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interfaces/INode2D.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interfaces/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interfaces/IOnPyxel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PackageScene/AnimatedSprite.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/AnimatedSprite.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackageScene/Barricade.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackageScene/Bullet.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackageScene/Enemy.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackageScene/HitMark.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackageScene/Player.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackageScene/PlayerSpecial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackageScene/PlayerWeapon.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackageScene/SpawEnemy.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/Weapon.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/Weapon.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PackageScene/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/MainScene.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/MenuScene.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/Animation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util/Animation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/AnimationData.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util/AnimationData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/BodyMoviment.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util/BodyMoviment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/ChildrenManager.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/CollisionBody.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/CollisionSystem.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/YSort.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/Player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Util/Vector2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util/Vector2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interfaces/IAnimatedSpriteEvents.py" beforeDir="false" afterPath="$PROJECT_DIR$/interfaces/IAnimatedSpriteEvents.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interfaces/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/interfaces/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

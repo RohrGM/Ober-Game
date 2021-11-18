@@ -4,6 +4,6 @@ class Vector2:
         self.y = y
 
     @staticmethod
-    def sum_vector(vec1, vec2):
+    def sum(vec1, vec2):
         return Vector2(vec1.x + vec2.x, vec1.y + vec2.y)
 

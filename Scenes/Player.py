@@ -16,14 +16,24 @@ class Player(IOnPyxel):
                                           self.__position)
         self.__legs_anim = AnimatedSprite(Vector2(0, 19), "legs_idle", "player_0", ["legs_idle", "legs_run"],
                                           self.__position)
+        self.__weapon = Weapon(20, 7, Vector2(0, 14), self.__position, self.__arms_anim, "shotgun")
 
         self.__arms_anim.add_subscriber(self.anim_locked, "locked_animation")
+        self.__weapon.add_subscriber(self.weapon_shoot, "shoot")
+        self.__weapon.add_subscriber(self.weapon_reload, "reload")
 
+        self.__elements.append(self.__weapon)
         self.__elements.append(self.__legs_anim)
         self.__elements.append(self.__arms_anim)
 
     def anim_locked(self, state: bool) -> None:
         self.__anim_locked = state
+
+    def weapon_shoot(self) -> None:
+        self.update_anim("shoot")
+
+    def weapon_reload(self) -> None:
+        self.update_anim("reload")
 
     def update_anim(self, new_anim: str) -> None:
         if self.__anim_locked is False:
