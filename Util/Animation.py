@@ -1,10 +1,9 @@
 import pyxel
-
-from Util.Vector2 import Vector2
+from util.Vector2 import Vector2
 
 
 class Animation:
-    def __init__(self, speed: int, position: Vector2, frames: int, loop: bool = True, agent=None,  size: Vector2 = Vector2(32, 32)):
+    def __init__(self, speed: int, position: Vector2, frames: int, loop: bool = True, agent=None, size: Vector2 = Vector2(32, 32)):
         self.__size = size
         self.__speed = speed
         self.__position = position
@@ -21,7 +20,7 @@ class Animation:
         if self.__loop is not True:
             index = (pyxel.frame_count - self.__frame_start) // self.__speed
             if index >= self.__frames - 1:
-                self.__agent.set_anim_free(True)
+                self.__agent.end_no_loop_anim()
 
         return index
 

@@ -1,82 +1,60 @@
 import pyxel
 
-from Interfaces.INode2D import INode2D
-from Util.ChildrenManager import ChildrenManager
-from Util.Vector2 import Vector2
-from Util.Animation import Animation
-from typing import Type
+from interfaces import IAnimatedSpriteEvents, ISubscriber, IOnPyxel
+from util import Vector2, AnimationData
 
 
-class AnimatedSprite(INode2D):
+class AnimatedSprite(IAnimatedSpriteEvents, ISubscriber, IOnPyxel):
 
-    def __init__(self, position: Vector2, start_anim: str, animations: dict) -> None:
-        self.__children_manager = ChildrenManager(self)
+    def __init__(self, position: Vector2, start_anim: str, character: str, list_name: list,
+                 reference_pos: Vector2 = Vector2(0, 0)) -> None:
         self.__position = position
-        self.__animations = animations
-        self.__current_anim = start_anim
-        self.__anim_free = True
+        self.__reference_pos = reference_pos
+        self.__animations = AnimationData.get_anim_list(character, list_name, self)
+        self.__current_anim = ""
+        self.__events = {"animation_finish": [], "locked_animation": []}
+        self.set_current_anim(start_anim)
 
-    def get_current_animation(self) -> Animation:
-        return self.__animations[self.__current_anim]
-
-    def get_current_anim_name(self) -> str:
-        return self.__current_anim
+    def set_current_anim(self, anim_name: str) -> None:
+        if self.is_anim_valid(anim_name):
+            if self.__animations[anim_name].is_loop() is not True:
+                self.locked_animation_event(True)
+                self.__animations[anim_name].set_start()
+            self.__current_anim = anim_name
 
     def is_anim_valid(self, anim: str) -> bool:
         if anim in self.__animations.keys():
             return True
         return False
 
-    def set_current_anim_name(self, anim: str) -> None:
-        if self.__animations[anim].is_loop() is not True:
-            self.__anim_free = False
-            self.__animations[anim].set_start()
-        self.__current_anim = anim
+    def end_no_loop_anim(self) -> None:
+        self.locked_animation_event(False)
 
-    def is_anim_free(self) -> bool:
-        return self.__anim_free
+    def get_position(self):
+        return Vector2.sum_vector(self.__position, self.__reference_pos)
 
-    def set_anim_free(self, free: bool) -> None:
-        self.__anim_free = free
+    def animation_finish_event(self, animation_name: str) -> None:
+        for func in self.__events["animation_finish"]:
+            func()
 
-    def add_child(self, child: Type[INode2D]) -> None:
-        self.__children_manager.add_child(child)
+    def locked_animation_event(self, state: bool) -> None:
+        for func in self.__events["locked_animation"]:
+            func(state)
 
-    def remove_child(self, child: Type[INode2D]) -> None:
-        self.__children_manager.remove_child(child)
+    def add_subscriber(self, func, event_name) -> None:
+        self.__events[event_name].append(func)
 
-    def add_parent(self, parent: Type[INode2D]) -> None:
-        self.__children_manager.add_parent(parent)
-
-    def get_parent(self) -> Type[INode2D]:
-        return self.__children_manager.get_parent()
-
-    def remove_parent(self) -> None:
-        self.__children_manager.remove_parent()
-
-    def get_children(self) -> list:
-        return self.__children_manager.get_children()
-
-    def set_children(self, children: list) -> None:
-        self.__children_manager.set_children(children)
-
-    def get_position(self) -> Vector2:
-        if self.get_parent() is None:
-            return self.__position
-        return Vector2.sum_vector(self.__children_manager.get_parent().get_position(), self.__position)
-
-    def set_position(self, position: Vector2):
-        self.__position = position
-
-    def queue_free(self) -> None:
-        if self.get_parent() is not None:
-            self.remove_child(self)
+    def remove_subscriber(self, func, event_name) -> None:
+        self.__events[event_name].remove(func)
 
     def update(self) -> None:
         pass
 
     def draw(self) -> None:
-        ctrl_u, ctrl_v = self.get_current_animation().get_uv()
-        pyxel.blt(self.get_position().x, self.get_position().y, 0, ctrl_u, ctrl_v,
-                  self.get_current_animation().get_size().x, self.get_current_animation().get_size().y,
+        ctrl_u, ctrl_v = self.__animations[self.__current_anim].get_uv()
+        pyxel.blt(self.get_position().x,
+                  self.get_position().y, 0, ctrl_u, ctrl_v,
+                  self.__animations[self.__current_anim].get_size().x,
+                  self.__animations[self.__current_anim].get_size().y,
                   pyxel.COLOR_PURPLE)
+

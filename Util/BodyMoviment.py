@@ -1,12 +1,12 @@
 import pyxel
-
-from Util.Vector2 import Vector2
+from util import Vector2
 
 
 class BodyMoviment:
 
     @staticmethod
     def control_moviment(position: Vector2, speed: int):
+
         motion = 0
         if pyxel.btn(pyxel.KEY_W):
             position.y -= speed
@@ -28,7 +28,7 @@ class BodyMoviment:
         position.y = min(position.y, 110)
         position.x = max(position.x, 0)
         position.x = min(position.x, 25)
-        return position, motion
+        return motion
 
     @staticmethod
     def simple_moviment(position: Vector2, direction: str, speed: int):
