@@ -1,7 +1,7 @@
 from util import Vector2, BodyMoviment
 from Enums import Direction
 from interfaces import IOnPyxel, IEnemyEvents
-from packageScene import AnimatedSprite, CollisionBody
+from packageScene import AnimatedSprite, CollisionBody, HitMark
 
 
 class Enemy(IOnPyxel, IEnemyEvents):
@@ -36,11 +36,18 @@ class Enemy(IOnPyxel, IEnemyEvents):
     def anim_locked(self, state: bool) -> None:
         self.__anim_locked = state
 
+    def remove_element(self, element: object) -> None:
+        self.__elements.remove(element)
+
     def get_critical_area(self) -> int:
         return self.__critical_area
 
-    def take_damage(self, damage: float) -> None:
+    def take_damage(self, damage: float, pos_hit: int) -> None:
         self.__life -= damage
+        hit_mark = HitMark(True if pos_hit < self.__critical_area else False, pos_hit, self.__position)
+        hit_mark.add_subscriber(self.remove_element, "dead")
+
+        self.__elements.append(hit_mark)
         if self.__life <= 0:
             self.dead()
 
@@ -64,7 +71,7 @@ class Enemy(IOnPyxel, IEnemyEvents):
     def update(self) -> None:
         if self.__anim_locked is False:
             BodyMoviment.simple_moviment(self.__position, Direction.LEFT, self.__speed)
-        if self.__position.x < -20:
+        if self.__position.x < -50:
             self.dead()
 
         for e in self.__elements:

@@ -27,7 +27,7 @@ class CollisionBody(ICollisionEvents, IOnPyxel):
         return self.__mask
 
     def get_position(self) -> Vector2:
-        return Vector2.sum(self.__reference_pos, Vector2(self.__rect_size.x, 0))
+        return self.__reference_pos
 
     def get_rect_size(self) -> Vector2:
         return self.__rect_size

@@ -22,9 +22,6 @@ class Bullet(IOnPyxel, IBulletEvents):
 
         self.__elements.append(self.__collision_body)
 
-    def is_alive(self) -> bool:
-        return self.__alive
-
     def on_collision_body(self, agent: object, name: str,  pos_y: int) -> None:
         if name == "Enemy" and self.__valid:
             self.__valid = False
@@ -32,7 +29,7 @@ class Bullet(IOnPyxel, IBulletEvents):
             if pos_y < agent.get_critical_area():
                 self.critical_event(damage)
                 damage *= 2
-            agent.take_damage(damage)
+            agent.take_damage(damage, pos_y)
             self.dead_event(self)
 
     def critical_event(self, damage: float) -> None:
@@ -53,7 +50,7 @@ class Bullet(IOnPyxel, IBulletEvents):
         self.__collision_body.update()
         BodyMoviment.simple_moviment(self.__position, Direction.RIGHT, 15)
         if self.__position.x > 260:
-            self.__alive = False
+            self.dead_event(self)
 
         for e in self.__elements:
             e.update()

@@ -19,7 +19,6 @@ class EnemySpawn(IOnPyxel):
         self.__elements.append(enemy)
 
     def update(self) -> None:
-        print(len(self.__elements))
         if pyxel.frame_count % 30 == 0:
             self.spawn()
 
