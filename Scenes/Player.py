@@ -7,7 +7,7 @@ from packageScene import AnimatedSprite, Weapon
 
 class Player(IOnPyxel):
 
-    def __init__(self, position: Vector2):
+    def __init__(self, position: Vector2) -> None:
         self.__position = position
         self.__elements = []
         self.__anim_locked = False

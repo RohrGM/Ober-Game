@@ -1,10 +1,10 @@
 import pyxel
 
-from interfaces import IAnimatedSpriteEvents, ISubscriber, IOnPyxel
+from interfaces import IAnimatedSpriteEvents, IOnPyxel
 from util import Vector2, AnimationData
 
 
-class AnimatedSprite(IAnimatedSpriteEvents, ISubscriber, IOnPyxel):
+class AnimatedSprite(IAnimatedSpriteEvents, IOnPyxel):
 
     def __init__(self, position: Vector2, start_anim: str, character: str, list_name: list,
                  reference_pos: Vector2 = Vector2(0, 0)) -> None:

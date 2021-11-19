@@ -1,5 +1,6 @@
 import pyxel
 from util import Vector2
+from Enums import Direction
 
 
 class BodyMoviment:
@@ -32,16 +33,16 @@ class BodyMoviment:
 
     @staticmethod
     def simple_moviment(position: Vector2, direction: str, speed: int):
-        if direction == "left":
+        if direction == Direction.LEFT:
             position.x -= speed
 
-        elif direction == "right":
+        elif direction == Direction.RIGHT:
             position.x += speed
 
-        elif direction == "up":
+        elif direction == Direction.UP:
             position.y -= speed
 
-        elif direction == "down":
+        elif direction == Direction.DOWN:
             position.y += speed
 
         return position

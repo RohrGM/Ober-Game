@@ -1,14 +1,14 @@
 import pyxel
 
 from util import Vector2
-from interfaces import IOnPyxel, IWeaponEvents, ISubscriber
+from interfaces import IOnPyxel, IWeaponEvents, IAnimatedSpriteEvents
 from .Bullet import Bullet
 from typing import Type
 
 
-class Weapon(ISubscriber, IOnPyxel, IWeaponEvents):
+class Weapon(IOnPyxel, IWeaponEvents):
 
-    def __init__(self, fire_rate: int, max_ammo: int, shot_pos: Vector2, reference_pos: Vector2, anim: Type[ISubscriber], name: str) -> None:
+    def __init__(self, fire_rate: int, max_ammo: int, shot_pos: Vector2, reference_pos: Vector2, anim: Type[IAnimatedSpriteEvents], name: str) -> None:
         self.__fire_rate = fire_rate
         self.__max_ammo = max_ammo
         self.__shot_pos = shot_pos
@@ -18,6 +18,7 @@ class Weapon(ISubscriber, IOnPyxel, IWeaponEvents):
         self.__current_fire_rate = 0
         self.__current_ammo = max_ammo
         self.__anim_locked = False
+        self.critical_count = 0
 
         self.__bullets = []
 
@@ -33,13 +34,19 @@ class Weapon(ISubscriber, IOnPyxel, IWeaponEvents):
         if self.__anim_locked is False and self.__current_fire_rate < 0 < self.__current_ammo:
             self.__current_fire_rate = self.__fire_rate
             self.__current_ammo -= 1
-            self.__bullets.append(Bullet(Vector2.sum(self.__reference_pos, self.__shot_pos)))
+
+            bullet = Bullet(Vector2.sum(self.__reference_pos, self.__shot_pos), 5)
+            bullet.add_subscriber(self.remove_bullet, "dead")
+            bullet.add_subscriber(self.add_critical_count, "critical")
+
+            self.__bullets.append(bullet)
             self.shoot_event()
 
-    def check_bullets(self) -> None:
-        for bullet in self.__bullets.copy():
-            if bullet.is_alive() is False:
-                self.__bullets.remove(bullet)
+    def remove_bullet(self, bullet) -> None:
+        self.__bullets.remove(bullet)
+
+    def add_critical_count(self, value: float) -> None:
+        self.critical_count += value
 
     def start_reload(self) -> None:
         self.reload_event()
@@ -73,7 +80,6 @@ class Weapon(ISubscriber, IOnPyxel, IWeaponEvents):
 
     def update(self) -> None:
         self.update_fire_rate()
-        self.check_bullets()
 
         for bullet in self.__bullets.copy():
             bullet.update()

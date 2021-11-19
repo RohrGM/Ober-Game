@@ -2,12 +2,12 @@ from abc import ABC, abstractmethod
 from .ISubscriber import ISubscriber
 
 
-class IWeaponEvents(ISubscriber, ABC):
+class IBulletEvents(ISubscriber, ABC):
 
     @abstractmethod
-    def shoot_event(self) -> None:
+    def critical_event(self, damage: float) -> None:
         pass
 
     @abstractmethod
-    def reload_event(self) -> None:
+    def dead_event(self, bullet: object) -> None:
         pass
