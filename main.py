@@ -1,8 +1,7 @@
 import pyxel
 
-from scenes import Player
-from superclass import Enemy
-from util.Vector2 import Vector2
+from scenes import Player, EnemySpawn
+from util import Vector2
 
 
 class App:
@@ -13,18 +12,18 @@ class App:
         pyxel.image(2).load(0, 0, "assets/static_items.png")
 
         self.__player = Player(Vector2(20, 50))
-        self.__enemy = Enemy(Vector2(250, 60), 10)
+        self.__enemy_spawn = EnemySpawn()
         pyxel.run(self.update, self.draw)
 
     def update(self):
         self.__player.update()
-        self.__enemy.update()
+        self.__enemy_spawn.update()
 
     def draw(self):
         pyxel.cls(pyxel.COLOR_CYAN)
         pyxel.blt(0, 0, 1, 0, 0, 256, 144)
         self.__player.draw()
-        self.__enemy.draw()
+        self.__enemy_spawn.draw()
 
 
 App()
