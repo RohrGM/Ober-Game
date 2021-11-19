@@ -1,7 +1,9 @@
 from util import Vector2, BodyMoviment
 from Enums import Direction
 from interfaces import IOnPyxel, IEnemyEvents
-from packageScene import AnimatedSprite, CollisionBody, HitMark
+from packageScene.CollisionBody import CollisionBody
+from packageScene.HitMark import HitMark
+from packageScene.AnimatedSprite import AnimatedSprite
 
 
 class Enemy(IOnPyxel, IEnemyEvents):

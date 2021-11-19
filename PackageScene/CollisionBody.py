@@ -1,5 +1,3 @@
-import pyxel
-
 from util import Vector2, CollisionSystem
 from interfaces import IOnPyxel, ICollisionEvents
 

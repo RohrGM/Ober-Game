@@ -2,7 +2,8 @@ import pyxel
 
 from util import Vector2
 from interfaces import IOnPyxel, IWeaponEvents, IAnimatedSpriteEvents
-from .Bullet import Bullet
+from packageScene.BulletPiercing import BulletPiercing
+from packageScene.BulletNormal import BulletNormal
 from typing import Type
 
 
@@ -18,7 +19,7 @@ class Weapon(IOnPyxel, IWeaponEvents):
         self.__current_fire_rate = 0
         self.__current_ammo = max_ammo
         self.__anim_locked = False
-        self.critical_count = 0
+        self.__critical_count = 0
 
         self.__bullets = []
 
@@ -35,7 +36,7 @@ class Weapon(IOnPyxel, IWeaponEvents):
             self.__current_fire_rate = self.__fire_rate
             self.__current_ammo -= 1
 
-            bullet = Bullet(Vector2.sum(self.__reference_pos, self.__shot_pos), 5)
+            bullet = BulletPiercing(Vector2.sum(self.__reference_pos, self.__shot_pos), 5)
             bullet.add_subscriber(self.remove_bullet, "dead")
             bullet.add_subscriber(self.add_critical_count, "critical")
 
@@ -46,7 +47,9 @@ class Weapon(IOnPyxel, IWeaponEvents):
         self.__bullets.remove(bullet)
 
     def add_critical_count(self, value: float) -> None:
-        self.critical_count += value
+        self.__critical_count += value
+        if self.__critical_count > 50:
+            self.__critical_count = 50
 
     def start_reload(self) -> None:
         self.reload_event()
@@ -91,9 +94,12 @@ class Weapon(IOnPyxel, IWeaponEvents):
                 self.start_reload()
 
     def draw(self) -> None:
-
         for bullet in self.__bullets.copy():
             bullet.draw()
+
+        pyxel.rect(15, 10, 52, 4, 7 if self.__critical_count < 50 else pyxel.frame_count % 16)
+        pyxel.rect(16, 11, self.__critical_count, 2, 2)
+        pyxel.blt(2, 5, 0, 232, 7, 11, 12, pyxel.COLOR_PURPLE)
 
         for i in range(self.__max_ammo):
             pyxel.rect(250 - (4 * i), 130, 3, 13, 0 if self.__current_ammo > 0 else pyxel.frame_count % 16)

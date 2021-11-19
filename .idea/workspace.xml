@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e1d27eb-0f57-480d-817d-c5b708880dff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Interfaces/IHitMarkEvents.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PackageScene/HitMark.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PackageScene/BulletNormal.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PackageScene/BulletPiercing.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/superclass/Bullet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/EnemySpawn.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/EnemySpawn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interfaces/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/interfaces/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packageScene/CollisionBody.py" beforeDir="false" afterPath="$PROJECT_DIR$/packageScene/CollisionBody.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/Bullet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/CollisionBody.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/CollisionBody.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/Weapon.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/Weapon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/superclass/Enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/superclass/Enemy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/superclass/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/superclass/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,10 +48,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test/PackageScene" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/packageScene" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Users\Rohr\Documents\GitHub\Ober-Game\packageScene" />
       <recent name="D:\Users\Rohr\Documents\GitHub\Ober-Game\test\PackageScene" />
       <recent name="D:\Users\Rohr\Documents\GitHub\Ober-Game\test\util" />
       <recent name="D:\Users\Rohr\Documents\GitHub\Ober-Game\test" />

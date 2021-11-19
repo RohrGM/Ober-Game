@@ -1,7 +1,7 @@
 import pyxel
-
+from abc import abstractmethod
 from util import Vector2, BodyMoviment
-from .CollisionBody import CollisionBody
+from packageScene.CollisionBody import CollisionBody
 from Enums import Direction
 from interfaces import IOnPyxel, IBulletEvents
 
@@ -22,15 +22,28 @@ class Bullet(IOnPyxel, IBulletEvents):
 
         self.__elements.append(self.__collision_body)
 
-    def on_collision_body(self, agent: object, name: str,  pos_y: int) -> None:
-        if name == "Enemy" and self.__valid:
-            self.__valid = False
-            damage = self.__damage
-            if pos_y < agent.get_critical_area():
-                self.critical_event(damage)
-                damage *= 2
-            agent.take_damage(damage, pos_y)
-            self.dead_event(self)
+    @abstractmethod
+    def on_collision_body(self, agent: object, name: str, pos_y: int) -> None:
+        pass
+
+    @abstractmethod
+    def bullet_draw(self) -> None:
+        pass
+
+    def is_valid(self) -> bool:
+        return self.__valid
+
+    def set_valid(self, valid) -> None:
+        self.__valid = valid
+
+    def get_damage(self) -> float:
+        return self.__damage
+
+    def get_position(self) -> Vector2:
+        return self.__position
+
+    def get_rect_size(self) -> Vector2:
+        return self.__rect_size
 
     def critical_event(self, damage: float) -> None:
         for func in self.__events["critical"]:
@@ -59,4 +72,5 @@ class Bullet(IOnPyxel, IBulletEvents):
         for e in self.__elements:
             e.draw()
 
-        pyxel.rect(self.__position.x, self.__position.y, self.__rect_size.x, self.__rect_size.y, 10)
+        self.bullet_draw()
+
