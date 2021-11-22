@@ -12,8 +12,18 @@ class CollisionBody(ICollisionEvents, IOnPyxel):
         self.__reference_pos = reference_pos
         self.__agent = agent
         self.__events = {"collision_body": []}
-
+        self.__last_collided = None
         CollisionSystem.add_body_on_system(self)
+
+    def check_collisions(self):
+        for body in CollisionSystem.collision_layer.copy():
+            if self.__mask == body.get_layer():
+                collision, pos_y = CollisionSystem.has_colliding(self, body)
+                if collision:
+                    self.on_collision_body_event(body.get_agent(), body.get_name(), pos_y)
+
+    def stop_collision(self):
+        CollisionSystem.remove_body_on_system(self)
 
     def get_name(self) -> str:
         return self.__name
@@ -32,16 +42,6 @@ class CollisionBody(ICollisionEvents, IOnPyxel):
 
     def get_agent(self) -> object:
         return self.__agent
-
-    def check_collisions(self):
-        for body in CollisionSystem.collision_layer.copy():
-            if self.__mask == body.get_layer():
-                collision, pos_y = CollisionSystem.has_colliding(self, body)
-                if collision:
-                    self.on_collision_body_event(body.get_agent(), body.get_name(), pos_y)
-
-    def stop_collision(self):
-        CollisionSystem.remove_body_on_system(self)
 
     def add_subscriber(self, func, event_name) -> None:
         self.__events[event_name].append(func)

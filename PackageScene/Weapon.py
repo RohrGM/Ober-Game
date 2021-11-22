@@ -9,7 +9,8 @@ from typing import Type
 
 class Weapon(IOnPyxel, IWeaponEvents):
 
-    def __init__(self, fire_rate: int, max_ammo: int, shot_pos: Vector2, reference_pos: Vector2, anim: Type[IAnimatedSpriteEvents], name: str) -> None:
+    def __init__(self, fire_rate: int, max_ammo: int, shot_pos: Vector2, reference_pos: Vector2,
+                 anim: Type[IAnimatedSpriteEvents], name: str) -> None:
         self.__fire_rate = fire_rate
         self.__max_ammo = max_ammo
         self.__shot_pos = shot_pos
@@ -19,11 +20,12 @@ class Weapon(IOnPyxel, IWeaponEvents):
         self.__current_fire_rate = 0
         self.__current_ammo = max_ammo
         self.__anim_locked = False
-        self.__critical_count = 0
+        self.__special_state = False
+        self.__critical_count = 50
 
         self.__bullets = []
 
-        self.__events = {"shoot": [], "reload": []}
+        self.__events = {"shoot": [], "reload": [], "special": []}
 
         anim.add_subscriber(self.anim_locked, "locked_animation")
         anim.add_subscriber(self.anim_finished, "animation_finished")
@@ -36,7 +38,10 @@ class Weapon(IOnPyxel, IWeaponEvents):
             self.__current_fire_rate = self.__fire_rate
             self.__current_ammo -= 1
 
-            bullet = BulletPiercing(Vector2.sum(self.__reference_pos, self.__shot_pos), 5)
+            bullet = BulletPiercing(Vector2.sum(self.__reference_pos, self.__shot_pos),
+                                    2.5) if self.__special_state else BulletNormal(
+                Vector2.sum(self.__reference_pos, self.__shot_pos), 5)
+
             bullet.add_subscriber(self.remove_bullet, "dead")
             bullet.add_subscriber(self.add_critical_count, "critical")
 
@@ -47,9 +52,10 @@ class Weapon(IOnPyxel, IWeaponEvents):
         self.__bullets.remove(bullet)
 
     def add_critical_count(self, value: float) -> None:
-        self.__critical_count += value
-        if self.__critical_count > 50:
-            self.__critical_count = 50
+        if self.__special_state is False:
+            self.__critical_count += value
+            if self.__critical_count > 50:
+                self.__critical_count = 50
 
     def start_reload(self) -> None:
         self.reload_event()
@@ -66,14 +72,20 @@ class Weapon(IOnPyxel, IWeaponEvents):
     def anim_finished(self, animation: str) -> None:
         if animation == "arms_reload":
             self.end_reload()
+        elif animation == "arms_special":
+            self.__special_state = True
+
+    def special_event(self) -> None:
+        for func in self.__events["special"]:
+            func("special")
 
     def shoot_event(self) -> None:
         for func in self.__events["shoot"]:
-            func()
+            func("shoot")
 
     def reload_event(self) -> None:
         for func in self.__events["reload"]:
-            func()
+            func("reload")
 
     def add_subscriber(self, func, event_name) -> None:
         self.__events[event_name].append(func)
@@ -90,14 +102,24 @@ class Weapon(IOnPyxel, IWeaponEvents):
         if self.__anim_locked is False:
             if pyxel.btn(pyxel.KEY_SPACE):
                 self.shoot()
+
             elif pyxel.btn(pyxel.KEY_R) and self.__current_ammo < self.__max_ammo:
                 self.start_reload()
+
+            elif pyxel.btn(pyxel.KEY_Q):
+                self.special_event()
+
+        if self.__special_state:
+            self.__critical_count -= .4
+            if self.__critical_count <= 0:
+                self.__critical_count = 0
+                self.__special_state = False
 
     def draw(self) -> None:
         for bullet in self.__bullets.copy():
             bullet.draw()
 
-        pyxel.rect(15, 10, 52, 4, 7 if self.__critical_count < 50 else pyxel.frame_count % 16)
+        pyxel.rect(15, 10, 52, 4, pyxel.frame_count % 16 if self.__critical_count >= 50 or self.__special_state else 7)
         pyxel.rect(16, 11, self.__critical_count, 2, 2)
         pyxel.blt(2, 5, 0, 232, 7, 11, 12, pyxel.COLOR_PURPLE)
 

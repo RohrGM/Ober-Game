@@ -84,7 +84,7 @@ class AnimationData:
                 "size": Vector2(32, 20),
                 "loop": False
             },
-            "arms_beer": {
+            "arms_special": {
                 "speed": 4,
                 "position": Vector2(0, 96),
                 "frames": 7,

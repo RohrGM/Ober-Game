@@ -11,3 +11,7 @@ class IWeaponEvents(ISubscriber, ABC):
     @abstractmethod
     def reload_event(self) -> None:
         pass
+
+    @abstractmethod
+    def special_event(self) -> None:
+        pass

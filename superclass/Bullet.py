@@ -1,7 +1,7 @@
 import pyxel
 from abc import abstractmethod
-from util import Vector2, BodyMoviment
 from packageScene.CollisionBody import CollisionBody
+from util import Vector2, BodyMoviment
 from Enums import Direction
 from interfaces import IOnPyxel, IBulletEvents
 
