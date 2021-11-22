@@ -1,3 +1,5 @@
+import pyxel
+
 from util import Vector2, BodyMoviment
 from Enums import Direction
 from interfaces import IOnPyxel, IEnemyEvents
@@ -15,12 +17,12 @@ class Enemy(IOnPyxel, IEnemyEvents):
         self.__critical_area = 9
         self.__elements = []
         self.__anim_locked = False
-        self.__body_anim = AnimatedSprite(Vector2(0, 0), "run", "zombie_1", ["run", "attack", "dead"], self.__position)
+        self.__body_anim = AnimatedSprite(Vector2(-14, 0), "run", "zombie_1", ["run", "attack", "dead"], self.__position)
         self.__collision_body = CollisionBody(self, 1, 0, Vector2(14, 28), self.__position, "Enemy")
 
         self.__events = {"dead": []}
 
-        '''self.__collision_body.add_subscriber(self.on_collision_body, "collision_body")'''
+        self.__collision_body.add_subscriber(self.on_collision_body, "collision_body")
         self.__body_anim.add_subscriber(self.anim_finished, "animation_finished")
         self.__body_anim.add_subscriber(self.anim_locked, "locked_animation")
 
@@ -28,7 +30,7 @@ class Enemy(IOnPyxel, IEnemyEvents):
         self.__elements.append(self.__body_anim)
 
     def update_anim(self, new_anim: str) -> None:
-        if self.__anim_locked is False:
+        if self.__anim_locked is False or new_anim == "dead":
             self.__body_anim.set_current_anim(new_anim)
 
     def anim_finished(self, animation: str) -> None:
@@ -57,8 +59,11 @@ class Enemy(IOnPyxel, IEnemyEvents):
         self.update_anim("dead")
         self.__collision_body.stop_collision()
 
-    '''def on_collision_body(self, agent: object, name: str,  pos_y: int) -> None:
-        pass'''
+    def on_collision_body(self, agent: object, name: str,  pos_y: int) -> None:
+        if name == "Barricade":
+            self.update_anim("attack")
+            if pyxel.frame_count % 50 == 0:
+                agent.take_damage(1)
 
     def dead_event(self, agent: object) -> None:
         for func in self.__events["dead"]:
@@ -71,13 +76,15 @@ class Enemy(IOnPyxel, IEnemyEvents):
         self.__events[event_name].remove(func)
 
     def update(self) -> None:
-        if self.__anim_locked is False:
-            BodyMoviment.simple_moviment(self.__position, Direction.LEFT, self.__speed)
-        if self.__position.x < -50:
-            self.dead()
-
         for e in self.__elements:
             e.update()
+
+        if self.__anim_locked is False:
+            self.update_anim("run")
+            BodyMoviment.simple_moviment(self.__position, Direction.LEFT, self.__speed)
+
+        if self.__position.x < -50:
+            self.dead()
 
     def draw(self) -> None:
         for e in self.__elements:

@@ -119,7 +119,7 @@ class AnimationData:
                 "position": Vector2(128, 128),
                 "frames": 4,
                 "size": Vector2(32, 32),
-                "loop": True
+                "loop": False
             },
             "dead": {
                 "speed": 3,

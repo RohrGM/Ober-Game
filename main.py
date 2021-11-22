@@ -26,7 +26,8 @@ class App:
         pyxel.run(self.update, self.draw)
 
     def remove_element(self, agent: object):
-        self.__elements.remove(agent)
+        if agent in self.__elements:
+            self.__elements.remove(agent)
 
     def update(self):
         for e in self.__elements:

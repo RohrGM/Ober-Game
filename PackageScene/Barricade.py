@@ -19,7 +19,8 @@ class Barricade(IOnPyxel, IBarricadeEvents):
 
     def take_damage(self, value: float) -> None:
         self.__life -= value
-        self.dead_event(self)
+        if self.__life < 0:
+            self.dead_event(self)
 
     def add_subscriber(self, func, event_name) -> None:
         self.__events[event_name].append(func)
@@ -28,6 +29,7 @@ class Barricade(IOnPyxel, IBarricadeEvents):
         self.__events[event_name].remove(func)
 
     def dead_event(self, agent: object):
+        self.__collision_body.stop_collision()
         for func in self.__events["dead"]:
             func(agent)
 

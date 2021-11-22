@@ -29,5 +29,5 @@ class HitMark(IOnPyxel, IHitMarkEvents):
             self.dead_event(self)
 
     def draw(self) -> None:
-        pyxel.blt(self.__position.x + 17, self.__position.y + self.__pos_y - 3, 0, 232 if self.__head else 225, 25, 5, 6,
+        pyxel.blt(self.__position.x + 3, self.__position.y + self.__pos_y - 3, 0, 232 if self.__head else 225, 25, 5, 6,
                   pyxel.COLOR_PURPLE)

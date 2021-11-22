@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e1d27eb-0f57-480d-817d-c5b708880dff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Interfaces/IBarricadeEvents.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PackageScene/Barricade.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interfaces/IWeaponEvents.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interfaces/IWeaponEvents.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PackageScene/Weapon.py" beforeDir="false" afterPath="$PROJECT_DIR$/PackageScene/Weapon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interfaces/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/interfaces/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/superclass/Enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/superclass/Enemy.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
