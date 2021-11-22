@@ -46,7 +46,7 @@ class Weapon(IOnPyxel, IWeaponEvents):
             bullet.add_subscriber(self.add_critical_count, "critical")
 
             self.__bullets.append(bullet)
-            self.shoot_event()
+            self.shoot_event("shoot")
 
     def remove_bullet(self, bullet) -> None:
         self.__bullets.remove(bullet)
@@ -58,7 +58,7 @@ class Weapon(IOnPyxel, IWeaponEvents):
                 self.__critical_count = 50
 
     def start_reload(self) -> None:
-        self.reload_event()
+        self.reload_event("reload")
 
     def end_reload(self) -> None:
         self.__current_ammo = self.__max_ammo
@@ -75,17 +75,17 @@ class Weapon(IOnPyxel, IWeaponEvents):
         elif animation == "arms_special":
             self.__special_state = True
 
-    def special_event(self) -> None:
+    def special_event(self, anim: str) -> None:
         for func in self.__events["special"]:
-            func("special")
+            func(anim)
 
-    def shoot_event(self) -> None:
+    def shoot_event(self, anim: str) -> None:
         for func in self.__events["shoot"]:
-            func("shoot")
+            func(anim)
 
-    def reload_event(self) -> None:
+    def reload_event(self, anim: str) -> None:
         for func in self.__events["reload"]:
-            func("reload")
+            func(anim)
 
     def add_subscriber(self, func, event_name) -> None:
         self.__events[event_name].append(func)
@@ -107,7 +107,7 @@ class Weapon(IOnPyxel, IWeaponEvents):
                 self.start_reload()
 
             elif pyxel.btn(pyxel.KEY_Q):
-                self.special_event()
+                self.special_event("special")
 
         if self.__special_state:
             self.__critical_count -= .4

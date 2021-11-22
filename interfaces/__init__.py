@@ -6,3 +6,4 @@ from .ICollisionEvents import ICollisionEvents
 from .IBulletEvents import IBulletEvents
 from .IEnemyEvents import IEnemyEvents
 from .IHitMarkEvents import IHitMarkEvents
+from .IBarricadeEvents import IBarricadeEvents

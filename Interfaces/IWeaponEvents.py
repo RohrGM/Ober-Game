@@ -5,13 +5,13 @@ from .ISubscriber import ISubscriber
 class IWeaponEvents(ISubscriber, ABC):
 
     @abstractmethod
-    def shoot_event(self) -> None:
+    def shoot_event(self, anim: str) -> None:
         pass
 
     @abstractmethod
-    def reload_event(self) -> None:
+    def reload_event(self, anim: str) -> None:
         pass
 
     @abstractmethod
-    def special_event(self) -> None:
+    def special_event(self, anim: str) -> None:
         pass

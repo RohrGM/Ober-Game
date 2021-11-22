@@ -4,3 +4,4 @@ from .HitMark import HitMark
 from .BulletNormal import BulletNormal
 from .BulletPiercing import BulletPiercing
 from .CollisionBody import CollisionBody
+from .Barricade import Barricade
