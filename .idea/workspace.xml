@@ -5,9 +5,71 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e1d27eb-0f57-480d-817d-c5b708880dff" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/interfaces/IBulletEvents.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/interfaces/ICollisionEvents.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/interfaces/IEnemyEvents.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/interfaces/IHitMarkEvents.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/interfaces/IOnPyxel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/interfaces/ISubscriber.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/interfaces/IWeaponEvents.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/packageScene/AnimatedSprite.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/packageScene/BulletNormal.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/packageScene/BulletPiercing.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/packageScene/CollisionBody.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/packageScene/HitMark.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/packageScene/Weapon.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/packageScene/Zombie0.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/packageScene/Zombie1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/packageScene/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/scenes/Barricade.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/scenes/EnemySpawn.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/scenes/GameOver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/scenes/Menu.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/scenes/Player.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/scenes/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/util/Animation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/util/AnimationData.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/util/BodyMoviment.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/util/CollisionSystem.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/util/Vector2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/util/YSort.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/util/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enums/Direction.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Enums/Direction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enums/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Enums/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interfaces/IBarricadeEvents.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interfaces/IBulletEvents.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interfaces/ICollisionEvents.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interfaces/IEnemyEvents.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interfaces/IHitMarkEvents.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interfaces/IOnPyxel.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interfaces/ISubscriber.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interfaces/IWeaponEvents.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/AnimatedSprite.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/Barricade.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/BulletNormal.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/BulletPiercing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/CollisionBody.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/HitMark.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/Weapon.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PackageScene/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/EnemySpawn.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/Player.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Util/Animation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Util/AnimationData.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Util/BodyMoviment.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Util/CollisionSystem.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Util/Vector2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Util/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/player/sprite.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/player/sprite.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interfaces/IAnimatedSpriteEvents.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/interfaces/IAnimatedSpriteEvents.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interfaces/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/interfaces/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/superclass/Enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/superclass/Enemy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/superclass/Bullet.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/superclass/Bullet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/superclass/Enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/superclass/Enemy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/superclass/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/superclass/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,11 +114,11 @@
       <recent name="D:\Users\Rohr\Documents\GitHub\Ober-Game\Scenes" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Users\Rohr\Documents\GitHub\Ober-Game\assets" />
+      <recent name="D:\Users\Rohr\Documents\GitHub\Ober-Game\scenes" />
       <recent name="D:\Users\Rohr\Documents\GitHub\Ober-Game\superclass" />
       <recent name="D:\Users\Rohr\Documents\GitHub\Ober-Game\packageScene" />
       <recent name="D:\Users\Rohr\Documents\GitHub\Ober-Game" />
-      <recent name="D:\Users\Rohr\Documents\GitHub\Ober-Game\old" />
-      <recent name="D:\Users\Rohr\Documents\GitHub\Ober-Game\Util" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main (1)">
@@ -94,6 +156,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Scenes/MainScene.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Ober-Game" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -210,6 +293,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main (1)" />
+        <item itemvalue="Python.Test" />
         <item itemvalue="Python.MainScene" />
         <item itemvalue="Python.teste" />
         <item itemvalue="Python.BulletFactory" />

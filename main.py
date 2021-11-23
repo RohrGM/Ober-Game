@@ -1,8 +1,6 @@
 import pyxel
-
-from scenes import Player, EnemySpawn
-from packageScene import Barricade
-from util import Vector2
+from assets.util import Vector2, YSort, CollisionSystem
+from assets.scenes import Player, EnemySpawn, Barricade, Menu, GameOver
 
 
 class App:
@@ -14,31 +12,49 @@ class App:
 
         self.__elements = []
 
-        self.__player = Player(Vector2(20, 50))
-        self.__enemy_spawn = EnemySpawn()
-        self.__barricade = Barricade()
+        self.__scenes = {
+            "menu": self.menu_scene,
+            "fight": self.fight_scene,
+            "gameover": self.gameover_scene
+        }
+        self.change_scene("menu")
 
-        self.__barricade.add_subscriber(self.remove_element, "dead")
-
-        self.__elements.append(self.__player)
-        self.__elements.append(self.__enemy_spawn)
-        self.__elements.append(self.__barricade)
         pyxel.run(self.update, self.draw)
 
-    def remove_element(self, agent: object):
+    def menu_scene(self) -> list:
+        return [Menu(self)]
+
+    def fight_scene(self) -> list:
+        return [Player(Vector2(20, 50)), EnemySpawn(self), Barricade(self)]
+
+    def gameover_scene(self) -> list:
+        return [GameOver(self)]
+
+    def change_scene(self, scene_name) -> None:
+        CollisionSystem.reset()
+        try:
+            self.__elements = self.__scenes[scene_name]()
+        except() as e:
+            print("Nenhum cena com esse nome ", e)
+
+    def add_element(self, element: object) -> None:
+        self.__elements.append(element)
+
+    def remove_element(self, agent: object) -> None:
         if agent in self.__elements:
             self.__elements.remove(agent)
 
-    def update(self):
-        for e in self.__elements:
+    def update(self) -> None:
+        for e in self.__elements.copy():
             e.update()
 
-    def draw(self):
+        YSort.get_YSort(self.__elements)
+
+    def draw(self) -> None:
         pyxel.cls(pyxel.COLOR_CYAN)
         pyxel.blt(0, 0, 1, 0, 0, 256, 144)
-        for e in self.__elements:
+        for e in self.__elements.copy():
             e.draw()
 
 
 App()
-
